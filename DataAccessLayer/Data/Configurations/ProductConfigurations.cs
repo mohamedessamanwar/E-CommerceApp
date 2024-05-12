@@ -12,6 +12,7 @@ namespace DataAccessLayer.Data.Configurations
             // modelBuilder.Property(p => p.UpdateOn).HasDefaultValueSql("GETDATE()");
             modelBuilder.Property(p => p.Name).HasMaxLength(255);
             modelBuilder.Property(p => p.Model).HasMaxLength(255);
+            modelBuilder.Property(p => p.Discount).HasDefaultValue(0.00);
             // modelBuilder.Property(p => p.Description).HasMaxLength(255);
             modelBuilder.Property(b => b.CurrentPrice)
                       .HasComputedColumnSql("Price * (1 - (Discount / 100))");

@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Data.Context
 {
-    public class ECommerceContext : DbContext
+    public class ECommerceContext : IdentityDbContext<ApplicationUser>
     {
         public ECommerceContext() { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -24,8 +25,10 @@ namespace DataAccessLayer.Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ECommerceContext).Assembly);
+            modelBuilder.Entity<ProductWithCategory>(p => { p.HasNoKey().ToView(null); });
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> categories { get; set; }
+        public DbSet<ProductWithCategory> ProductWithCategories { get; set; }
     }
 }

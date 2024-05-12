@@ -1,15 +1,16 @@
 ﻿using DataAccessLayer.Data.Context;
+using DataAccessLayer.Repositories.ProductRepo;
 
 namespace DataAccessLayer.UnitOfWorkRepo
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ECommerceContext _context;
-
-        public UnitOfWork(ECommerceContext context)
+        public IProductRepository productRepository { get; }
+        public UnitOfWork(ECommerceContext context, IProductRepository productRepository)
         {
             this._context = context;
-
+            this.productRepository = productRepository;
         }
 
 
@@ -21,7 +22,8 @@ namespace DataAccessLayer.UnitOfWorkRepo
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
+            GC.SuppressFinalize(this);
         }
     }
 }

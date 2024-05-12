@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories.GenericRepo
 {
-    internal class GenericRepo<T> : IGenericRepo<T> where T : class
+    public class GenericRepo<T> : IGenericRepo<T> where T : class
     {
         private readonly ECommerceContext context;
         public GenericRepo(ECommerceContext context)
@@ -18,9 +18,9 @@ namespace DataAccessLayer.Repositories.GenericRepo
         {
             return context.Set<T>().Find(id);
         }
-        public void Add(T entity)
+        public async Task AddAsync(T entity)
         {
-            context.Set<T>().Add(entity);
+            await context.Set<T>().AddAsync(entity);
         }
         public void Update(T entity)
         {

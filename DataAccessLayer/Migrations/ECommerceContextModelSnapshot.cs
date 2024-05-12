@@ -22,6 +22,88 @@ namespace DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DataAccessLayer.Data.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("DataAccessLayer.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -146,7 +228,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -161,7 +245,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("UpdateOn")
+                    b.Property<DateTime?>("UpdateOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -181,8 +265,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "82JQ00TQED",
                             Name = "LENOVO Legion 5 Pro",
-                            Price = 46999m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 46999m
                         },
                         new
                         {
@@ -194,8 +277,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "UX3402ZA-OLED007W",
                             Name = "Asus ZenBook 14 UX3402ZA",
-                            Price = 43499m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 43499m
                         },
                         new
                         {
@@ -207,8 +289,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "LENOVO IdeaPad Gaming",
                             Name = "LENOVO IdeaPad Gaming",
-                            Price = 27999m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 27999m
                         },
                         new
                         {
@@ -220,8 +301,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "eq2009ne",
                             Name = "NOTEBOOK-HP-AMD-15s",
-                            Price = 16666m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 16666m
                         },
                         new
                         {
@@ -233,8 +313,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 50m,
                             Model = "MacBook Air",
                             Name = "Apple MacBook Air",
-                            Price = 40000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 40000m
                         },
                         new
                         {
@@ -246,8 +325,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 20m,
                             Model = "MacBook Pro",
                             Name = "Apple MacBook Pro",
-                            Price = 80000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 80000m
                         },
                         new
                         {
@@ -259,8 +337,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "XPS 13",
                             Name = "Dell XPS 13",
-                            Price = 40000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 40000m
                         },
                         new
                         {
@@ -272,8 +349,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 13m,
                             Model = "Inspiron 15",
                             Name = "Dell Inspiron 15",
-                            Price = 35000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 35000m
                         },
                         new
                         {
@@ -285,8 +361,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 15m,
                             Model = "Spectre x360",
                             Name = "HP Spectre x360",
-                            Price = 25000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 25000m
                         },
                         new
                         {
@@ -298,8 +373,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 60m,
                             Model = "Pavilion 14",
                             Name = "HP Pavilion 14",
-                            Price = 15000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 15000m
                         },
                         new
                         {
@@ -311,8 +385,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 10m,
                             Model = "MacBook Air",
                             Name = "Apple MacBook Air",
-                            Price = 28000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 28000m
                         },
                         new
                         {
@@ -324,8 +397,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 12m,
                             Model = "MacBook Pro",
                             Name = "Apple MacBook Pro",
-                            Price = 30000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 30000m
                         },
                         new
                         {
@@ -337,8 +409,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "iMac",
                             Name = "Apple iMac",
-                            Price = 16000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 16000m
                         },
                         new
                         {
@@ -350,8 +421,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 90m,
                             Model = "XPS 13",
                             Name = "Dell XPS 13",
-                            Price = 14000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 14000m
                         },
                         new
                         {
@@ -363,8 +433,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 18m,
                             Model = "Inspiron 15",
                             Name = "Dell Inspiron 15",
-                            Price = 30000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 30000m
                         },
                         new
                         {
@@ -376,8 +445,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 20m,
                             Model = "G5 Gaming Desktop",
                             Name = "Dell G5 Gaming Desktop",
-                            Price = 38000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 38000m
                         },
                         new
                         {
@@ -389,8 +457,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 19m,
                             Model = "Spectre x360",
                             Name = "HP Spectre x360",
-                            Price = 26000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 26000m
                         },
                         new
                         {
@@ -402,8 +469,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "Pavilion 14",
                             Name = "HP Pavilion 14",
-                            Price = 6000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 6000m
                         },
                         new
                         {
@@ -415,8 +481,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 80m,
                             Model = "EliteBook 840",
                             Name = "HP EliteBook 840",
-                            Price = 50000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 50000m
                         },
                         new
                         {
@@ -428,8 +493,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 15m,
                             Model = "MacBook Air",
                             Name = "Apple MacBook Air",
-                            Price = 18000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 18000m
                         },
                         new
                         {
@@ -441,8 +505,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 5m,
                             Model = "XPS 13",
                             Name = "Dell XPS 13",
-                            Price = 13000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 13000m
                         },
                         new
                         {
@@ -454,8 +517,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 10m,
                             Model = "Spectre x360",
                             Name = "HP Spectre x360",
-                            Price = 12000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 12000m
                         },
                         new
                         {
@@ -467,8 +529,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 6m,
                             Model = "ThinkCentre M720",
                             Name = "Lenovo ThinkCentre M720",
-                            Price = 15000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 15000m
                         },
                         new
                         {
@@ -480,8 +541,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 60m,
                             Model = "ROG Strix G15",
                             Name = "ASUS ROG Strix G15",
-                            Price = 80000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 80000m
                         },
                         new
                         {
@@ -493,8 +553,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 15m,
                             Model = "Aspire TC",
                             Name = "Acer Aspire TC",
-                            Price = 18000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 18000m
                         },
                         new
                         {
@@ -506,8 +565,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 10m,
                             Model = "Inspiron 27",
                             Name = "Dell Inspiron 27",
-                            Price = 22000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 22000m
                         },
                         new
                         {
@@ -519,8 +577,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 15m,
                             Model = "ZenBook Pro",
                             Name = "ASUS ZenBook Pro",
-                            Price = 28000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 28000m
                         },
                         new
                         {
@@ -532,8 +589,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 80m,
                             Model = "Pavilion Gaming Desktop",
                             Name = "HP Pavilion Gaming Desktop",
-                            Price = 15000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 15000m
                         },
                         new
                         {
@@ -545,8 +601,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 12m,
                             Model = "Legion Y540",
                             Name = "Lenovo Legion Y540",
-                            Price = 20000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 20000m
                         },
                         new
                         {
@@ -558,8 +613,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 20m,
                             Model = "iMac",
                             Name = "Apple iMac",
-                            Price = 24000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 24000m
                         },
                         new
                         {
@@ -571,8 +625,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 10m,
                             Model = "G5 Gaming Laptop",
                             Name = "Dell G5 Gaming Laptop",
-                            Price = 18000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 18000m
                         },
                         new
                         {
@@ -584,8 +637,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 15m,
                             Model = "Envy 15",
                             Name = "HP Envy 15",
-                            Price = 16000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 16000m
                         },
                         new
                         {
@@ -597,8 +649,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 50m,
                             Model = "IdeaCentre 5",
                             Name = "Lenovo IdeaCentre 5",
-                            Price = 8990m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 8990m
                         },
                         new
                         {
@@ -610,8 +661,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "VivoBook S15",
                             Name = "ASUS VivoBook S15",
-                            Price = 9990m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 9990m
                         },
                         new
                         {
@@ -623,8 +673,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 10m,
                             Model = "Galaxy Book Pro",
                             Name = "Samsung Galaxy Book Pro",
-                            Price = 14990m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 14990m
                         },
                         new
                         {
@@ -636,8 +685,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 20m,
                             Model = "Alienware Aurora R10",
                             Name = "Dell Alienware Aurora R10",
-                            Price = 28000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 28000m
                         },
                         new
                         {
@@ -649,8 +697,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 15m,
                             Model = "Omen 15",
                             Name = "HP Omen 15",
-                            Price = 17999m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 17999m
                         },
                         new
                         {
@@ -662,8 +709,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 10m,
                             Model = "MacBook Air",
                             Name = "Apple MacBook Air",
-                            Price = 12990m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 12990m
                         },
                         new
                         {
@@ -675,8 +721,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 15m,
                             Model = "Blade 15",
                             Name = "Razer Blade 15",
-                            Price = 23990m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 23990m
                         },
                         new
                         {
@@ -688,8 +733,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 60m,
                             Model = "ThinkPad X1 Carbon",
                             Name = "Lenovo ThinkPad X1 Carbon",
-                            Price = 18990m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 18990m
                         },
                         new
                         {
@@ -701,8 +745,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "ROG Zephyrus G14",
                             Name = "ASUS ROG Zephyrus G14",
-                            Price = 17000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 17000m
                         },
                         new
                         {
@@ -714,8 +757,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 19m,
                             Model = "GS66 Stealth",
                             Name = "MSI GS66 Stealth",
-                            Price = 23999m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 23999m
                         },
                         new
                         {
@@ -727,8 +769,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 17m,
                             Model = "Prestige 14",
                             Name = "MSI Prestige 14",
-                            Price = 15990m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 15990m
                         },
                         new
                         {
@@ -740,8 +781,7 @@ namespace DataAccessLayer.Migrations
                             Discount = 14m,
                             Model = "Surface Laptop 4",
                             Name = "Microsoft Surface Laptop 4",
-                            Price = 23000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 23000m
                         },
                         new
                         {
@@ -753,9 +793,165 @@ namespace DataAccessLayer.Migrations
                             Discount = 0m,
                             Model = "Surface Pro 7",
                             Name = "Microsoft Surface Pro 7",
-                            Price = 20000m,
-                            UpdateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Price = 20000m
                         });
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.ProductWithCategory", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CurrentPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Data.Models.Product", b =>
@@ -767,6 +963,57 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DataAccessLayer.Data.Models.Category", b =>

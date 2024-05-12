@@ -71,3 +71,13 @@ C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\obj\Debug\net7.0\refint\E-C
 C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\obj\Debug\net7.0\E-CommerceApp.pdb
 C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\obj\Debug\net7.0\E-CommerceApp.genruntimeconfig.cache
 C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\obj\Debug\net7.0\ref\E-CommerceApp.dll
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\obj\Debug\net7.0\E-CommerceApp.sourcelink.json
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\BusinessAccessLayer.dll
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\BusinessAccessLayer.pdb
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\E-CommerceApp.staticwebassets.runtime.json
+C:\Users\AL-FAJR\Desktop\E-CommerceApp\E-CommerceApp\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
