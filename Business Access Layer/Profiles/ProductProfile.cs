@@ -8,9 +8,11 @@ namespace BusinessAccessLayer.Profiles
         public ProductProfile()
         {
             CreateMap<Product, ProductWithCategoryDto>()
-             .ForMember(dest => dest.CategoryID, opt => opt.MapFrom(src => src.Category.Id))
-             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
-             .ReverseMap();
+    .ForMember(dest => dest.CategoryID, opt => opt.MapFrom(src => src.Category.Id))
+    .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+    .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(img => img.Url).ToList()))
+    .ReverseMap();
+
             CreateMap<Product, CreateProductDto>()
             .ReverseMap();
             CreateMap<Product, ViewProduct>().ReverseMap();

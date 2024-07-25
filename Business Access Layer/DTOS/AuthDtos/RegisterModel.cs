@@ -13,7 +13,7 @@ namespace BusinessAccessLayer.DTOS.AuthDtos
         [Required, StringLength(50)]
         public string Username { get; set; }
 
-        [Required, StringLength(128)]
+        [Required,EmailAddress,StringLength(128)]
         public string Email { get; set; }
 
         [Required, StringLength(256)]

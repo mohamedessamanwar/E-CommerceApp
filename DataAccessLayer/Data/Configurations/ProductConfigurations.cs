@@ -13,6 +13,19 @@ namespace DataAccessLayer.Data.Configurations
             modelBuilder.Property(p => p.Name).HasMaxLength(255);
             modelBuilder.Property(p => p.Model).HasMaxLength(255);
             modelBuilder.Property(p => p.Discount).HasDefaultValue(0.00);
+            modelBuilder.HasIndex(p => p.Name);
+            modelBuilder.Property(p => p.Status).HasDefaultValue("Available");
+            modelBuilder.HasIndex(P=>P.Description);
+            modelBuilder.
+            Property(p => p.Name)
+           .HasPrecision(18, 2);
+            modelBuilder.
+            Property(p => p.Discount)
+           .HasPrecision(18, 2);
+            modelBuilder.
+           Property(p => p.CurrentPrice)
+           .HasPrecision(18, 2);
+            // Adjust the precision and scale as needed
             // modelBuilder.Property(p => p.Description).HasMaxLength(255);
             modelBuilder.Property(b => b.CurrentPrice)
                       .HasComputedColumnSql("Price * (1 - (Discount / 100))");

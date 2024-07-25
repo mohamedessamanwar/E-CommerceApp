@@ -16,7 +16,7 @@ namespace DataAccessLayer.Repositories.ProductRepo
 
         public async Task<IEnumerable<Product>> GetProductsWithCategories()
         {
-            return await _context.Products.AsNoTracking().Include(p => p.Category).ToListAsync();
+            return await _context.Products.AsNoTracking().Include(p => p.Category).Include(p=> p.Images).ToListAsync();
         }
         public async Task<IEnumerable<Product>> GetProductsWithPagination(int PageNumber, int PageSize, string[]? OrderBy, string? Search)
         {
@@ -60,8 +60,15 @@ namespace DataAccessLayer.Repositories.ProductRepo
         public async Task<IEnumerable<ProductWithCategory>> GetProductWithCategory(int Id)
         {
             var Idparam = new SqlParameter("id", Id);
-            return _context.ProductWithCategories.FromSqlRaw($"ProductWithCategory @id", Idparam).ToList();
+            return  await _context.ProductWithCategories.FromSqlRaw($"ProductWithCategory @id", Idparam).ToListAsync();
 
         }
+        public async Task<Product?> GitId(int Id)
+        {
+            return await _context.Products
+               .FromSqlRaw("SELECT * FROM Products WITH (UPDLOCK, ROWLOCK) WHERE Id = {0}", Id)
+                .FirstOrDefaultAsync();
+        }
+
     }
 }

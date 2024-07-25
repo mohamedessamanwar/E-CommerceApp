@@ -10,6 +10,8 @@ namespace DataAccessLayer.Data.Models
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string? Code { get; set; }
-        //public string EmailConfirmationToken { get; set; }
+        public IEnumerable<Address> Addresses { get; set; }
+        public IEnumerable<ShoppingCart> shoppingCarts { get; set; }
+
     }
 }

@@ -8,5 +8,6 @@ namespace DataAccessLayer.Repositories.ProductRepo
         Task<IEnumerable<Product>> GetProductsWithCategories();
         Task<IEnumerable<ProductWithCategory>> GetProductWithCategory(int Id);
         Task<IEnumerable<Product>> GetProductsWithPagination(int PageNumber, int PageSize, string[]? OrderBy, string? Search);
+         Task<Product?> GitId(int Id); 
     }
 }

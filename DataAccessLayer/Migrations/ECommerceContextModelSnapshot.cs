@@ -22,6 +22,46 @@ namespace DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 7, 24, 22, 9, 45, 250, DateTimeKind.Local).AddTicks(8560));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Available");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("addresses");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -202,6 +242,120 @@ namespace DataAccessLayer.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETTIME()");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("images");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("OrderPaymentStatus")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("OrderPaymentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("OrderTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ShippingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("orders");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("orderDetails");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -213,6 +367,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -220,15 +377,17 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<decimal>("CurrentPrice")
                         .ValueGeneratedOnAddOrUpdate()
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasComputedColumnSql("Price * (1 - (Discount / 100))");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Discount")
                         .ValueGeneratedOnAdd()
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasDefaultValue(0m);
 
@@ -240,10 +399,17 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
+                        .HasPrecision(18, 2)
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Available");
 
                     b.Property<DateTime?>("UpdateOn")
                         .HasColumnType("datetime2");
@@ -252,6 +418,10 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("CategoryID");
 
+                    b.HasIndex("Description");
+
+                    b.HasIndex("Name");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -259,6 +429,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 1,
                             CategoryID = 4,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "Processor AMD Ryzen™ 7 5800H(8C / 16T, 3.2 / 4.4GHz, 4MB L2 / 16MB L3)\r\nGraphics\r\nNVIDIA® GeForce RTX™ 3060 6GB GDDR6, Boost Clock 1425 / 1702MHz, TGP 130W\r\nMemory\r\n2x 8GB SO-DIMM DDR4-3200\r\nUp to 32GB DDR4-3200 offering\r\nStorage\r\n1TB SSD M.2 2280 PCIe® 3.0x4 NVMe®\r\n",
@@ -271,6 +442,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 2,
                             CategoryID = 5,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "Processor: Intel® Core™ i7-1260P 12th Generation 12C / 16T Processor 2.1 GHz (18M Cache, up to 4.7 GHz, 4P+8E cores)\r\nGraphics: \"Intel® Iris Xe Graphics\"\r\nMemory: 16GB LPDDR5 on board\r\nStorage: 1TB M.2 NVMe™ PCIe® 3.0 SSD\r\nDisplay: 14.0-inch, 2.8K (2880 x 1800) OLED 16:10 aspect ratio, 0.2ms response time, 90Hz refresh rate, 400nits, 600nits HDR peak brightness, 100% DCI-P3 /touch screen, (Screen-to-body ratio)90%",
@@ -283,6 +455,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 3,
                             CategoryID = 4,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "Processor\r\nAMD Ryzen 5 5600H (6C / 12T, 3.3 / 4.2GHz, 3MB L2 / 16MB L3)\r\nGraphics\r\nNVIDIA GeForce RTX 3050 Ti 4GB GDDR6, Boost Clock 1485 / 1597.5MHz, TGP 85W\r\nMemory\r\n1x 8GB SO-DIMM DDR4-3200\r\nStorage\r\n256GB SSD M.2 2242 PCIe 3.0x4 NVMe + 1TB HDD\r\nDisplay\r\n15.6\" FHD (1920x1080) IPS 250nits Anti-glare, 45% NTSC, 120Hz\r\nOperating System\r\nWindows 11 Home, English\r\nKeyboard\r\nWhite Backlit, English (US)",
@@ -295,6 +468,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 4,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "AMD Ryzen™ 7 5700U (up to 4.3 GHz max boost clock, 8 MB L3 cache, 8 cores, 16 threads) 1 2 \r\nIntegrated,AMD Radeon™ Graphics .8 GB DDR4-3200 MHz RAM (1 x 8 GB) 512 GB PCIe® NVMe™ M.2 SSD\r\n39.6 cm (15.6\") diagonal, FHD (1920 x 1080), micro-edge, anti-glare, 250 nits, 45% NTSC 3\r\nFull-size, jet black keyboard with numeric keypad",
@@ -307,6 +481,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 5,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple MacBook Air is a lightweight and portable laptop with excellent battery life.",
@@ -319,6 +494,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 6,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple MacBook Pro is a high-performance laptop loved by professionals.",
@@ -331,6 +507,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 7,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell XPS 13 is a sleek and powerful laptop with a stunning display.",
@@ -343,6 +520,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 8,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell Inspiron 15 is a versatile laptop suitable for everyday use.",
@@ -355,6 +533,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 9,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Spectre x360 is a stylish 2-in-1 laptop with powerful performance.",
@@ -367,6 +546,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 10,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Pavilion 14 is a budget-friendly laptop with decent specifications.",
@@ -379,6 +559,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 11,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple MacBook Air is a lightweight and portable laptop with excellent battery life.",
@@ -391,6 +572,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 12,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple MacBook Pro is a high-performance laptop loved by professionals.",
@@ -403,6 +585,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 13,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple iMac is a sleek and powerful all-in-one desktop computer.",
@@ -415,6 +598,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 14,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell XPS 13 is a sleek and powerful laptop with a stunning display.",
@@ -427,6 +611,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 15,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell Inspiron 15 is a versatile laptop suitable for everyday use.",
@@ -439,6 +624,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 16,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell G5 Gaming Desktop is a powerful gaming machine with immersive graphics.",
@@ -451,6 +637,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 17,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Spectre x360 is a stylish 2-in-1 laptop with powerful performance.",
@@ -463,6 +650,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 18,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Pavilion 14 is a budget-friendly laptop with decent specifications.",
@@ -475,6 +663,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 19,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP EliteBook 840 is a business laptop with top-notch security features.",
@@ -487,6 +676,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 20,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple MacBook Air is a lightweight and portable laptop with excellent battery life.",
@@ -499,6 +689,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 21,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell XPS 13 is a sleek and powerful laptop with a stunning display.",
@@ -511,6 +702,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 22,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Spectre x360 is a stylish 2-in-1 laptop with powerful performance.",
@@ -523,6 +715,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 23,
                             CategoryID = 4,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Lenovo ThinkCentre M720 is a compact and reliable desktop computer for business use.",
@@ -535,6 +728,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 24,
                             CategoryID = 5,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The ASUS ROG Strix G15 is a powerful gaming desktop with RGB lighting and high-performance components.",
@@ -547,6 +741,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 25,
                             CategoryID = 6,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Acer Aspire TC is a budget-friendly desktop computer with decent performance.",
@@ -559,6 +754,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 26,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell Inspiron 27 is an all-in-one desktop computer with a large display and powerful performance.",
@@ -571,6 +767,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 27,
                             CategoryID = 5,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The ASUS ZenBook Pro is a premium laptop with a stunning 4K display and high-performance components.",
@@ -583,6 +780,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 28,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Pavilion Gaming Desktop is a gaming powerhouse with advanced graphics and smooth gameplay.",
@@ -595,6 +793,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 29,
                             CategoryID = 4,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Lenovo Legion Y540 is a gaming laptop with powerful hardware and immersive gaming experience.",
@@ -607,6 +806,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 30,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple iMac is a sleek all-in-one desktop computer with a stunning Retina display and powerful performance.",
@@ -619,6 +819,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 31,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell G5 is a gaming laptop with high-performance hardware and immersive gaming features.",
@@ -631,6 +832,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 32,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Envy 15 is a premium laptop with a sleek design and powerful performance for multimedia and productivity tasks.",
@@ -643,6 +845,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 33,
                             CategoryID = 4,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Lenovo IdeaCentre 5 is a compact and versatile desktop computer suitable for home and office use.",
@@ -655,6 +858,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 34,
                             CategoryID = 5,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The ASUS VivoBook S15 is a stylish and lightweight laptop with a vibrant display and long battery life.",
@@ -667,6 +871,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 35,
                             CategoryID = 10,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Samsung Galaxy Book Pro is a thin and lightweight laptop with a stunning AMOLED display and powerful performance.",
@@ -679,6 +884,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 36,
                             CategoryID = 2,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Dell Alienware Aurora R10 is a high-performance gaming desktop with powerful hardware and customizable lighting.",
@@ -691,6 +897,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 37,
                             CategoryID = 3,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The HP Omen 15 is a gaming laptop with a sleek design, high-refresh-rate display, and powerful performance for gaming enthusiasts.",
@@ -703,6 +910,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 38,
                             CategoryID = 1,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Apple MacBook Air is a lightweight and portable laptop with a stunning Retina display and all-day battery life.",
@@ -715,6 +923,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 39,
                             CategoryID = 9,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Razer Blade 15 is a premium gaming laptop with a sleek design, high-refresh-rate display, and powerful performance.",
@@ -727,6 +936,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 40,
                             CategoryID = 4,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Lenovo ThinkPad X1 Carbon is a premium business laptop with a durable build, long battery life, and top-notch performance.",
@@ -739,6 +949,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 41,
                             CategoryID = 5,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The ASUS ROG Zephyrus G14 is a powerful gaming laptop with an ultra-portable design and impressive performance.",
@@ -751,6 +962,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 42,
                             CategoryID = 8,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The MSI GS66 Stealth is a high-performance gaming laptop with a sleek design and powerful components.",
@@ -763,6 +975,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 43,
                             CategoryID = 8,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The MSI Prestige 14 is a stylish and powerful laptop designed for creative professionals.",
@@ -775,6 +988,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 44,
                             CategoryID = 7,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Microsoft Surface Laptop 4 is a sleek and versatile laptop with a premium design and excellent performance.",
@@ -787,6 +1001,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 45,
                             CategoryID = 7,
+                            Count = 0,
                             CreateOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CurrentPrice = 0m,
                             Description = "The Microsoft Surface Pro 7 is a powerful 2-in-1 tablet-laptop hybrid with a detachable keyboard and versatile functionality.",
@@ -806,8 +1021,9 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CurrentPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("CurrentPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -819,6 +1035,43 @@ namespace DataAccessLayer.Migrations
                     b.ToTable((string)null);
 
                     b.ToView(null, (string)null);
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 7, 24, 22, 9, 45, 252, DateTimeKind.Local).AddTicks(9766));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 7, 24, 22, 9, 45, 253, DateTimeKind.Local).AddTicks(272));
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("shoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -954,6 +1207,66 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Address", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Image", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Order", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.OrderDetail", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.Order", "Order")
+                        .WithMany("orderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Data.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Data.Models.Product", b =>
                 {
                     b.HasOne("DataAccessLayer.Data.Models.Category", "Category")
@@ -963,6 +1276,25 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", "User")
+                        .WithMany("shoppingCarts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1016,9 +1348,26 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("shoppingCarts");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Data.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Order", b =>
+                {
+                    b.Navigation("orderDetails");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Product", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

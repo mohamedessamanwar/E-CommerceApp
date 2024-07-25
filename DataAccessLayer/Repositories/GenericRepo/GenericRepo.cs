@@ -5,18 +5,18 @@ namespace DataAccessLayer.Repositories.GenericRepo
 {
     public class GenericRepo<T> : IGenericRepo<T> where T : class
     {
-        private readonly ECommerceContext context;
+        protected readonly ECommerceContext context;
         public GenericRepo(ECommerceContext context)
         {
             this.context = context;
         }
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return context.Set<T>().AsNoTracking();
+            return await context.Set<T>().AsNoTracking().ToListAsync();
         }
-        public T? GetById(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            return context.Set<T>().Find(id);
+            return await context.Set<T>().FindAsync(id);
         }
         public async Task AddAsync(T entity)
         {
@@ -25,11 +25,14 @@ namespace DataAccessLayer.Repositories.GenericRepo
         public void Update(T entity)
         {
 
+             context.Set<T>().Update(entity);
         }
         public void Delete(T entity)
         {
             context.Set<T>().Remove(entity);
 
         }
+
+       
     }
 }

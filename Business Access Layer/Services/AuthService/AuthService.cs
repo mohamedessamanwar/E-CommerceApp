@@ -19,7 +19,7 @@ namespace Business_Access_Layer.Services.AuthService
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JWT _jwt;
         private readonly IMailingService _mailingService;
-        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt, IMailingService mailingService)
+        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt = null, IMailingService mailingService = null)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -257,5 +257,10 @@ namespace Business_Access_Layer.Services.AuthService
             }
             return new AuthModel { IsAuthenticated = true, Message = "Password is Reset" };
         }
+
+        //public Task GetTokenAsync(DTOS.Response.TokenRequestModel tokenRequestModel)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

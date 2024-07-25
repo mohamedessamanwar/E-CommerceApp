@@ -2,8 +2,8 @@
 {
     public interface IGenericRepo<T> where T : class // primary constrain 
     {
-        IEnumerable<T> GetAll();
-        T? GetById(int id);
+        Task<IEnumerable<T>> GetAll();
+        Task<T?> GetByIdAsync(int id);
         Task AddAsync(T entity);
         void Update(T entity);
         void Delete(T entity);

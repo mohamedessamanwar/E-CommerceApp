@@ -1,4 +1,6 @@
-﻿namespace BusinessAccessLayer.DTOS.ProductDtos
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BusinessAccessLayer.DTOS.ProductDtos
 {
     public class CreateProductDto
     {
@@ -8,5 +10,8 @@
         public decimal? Discount { get; set; }
         public string? Description { get; set; } = string.Empty;
         public int? CategoryID { get; set; }
+
+        public List<IFormFile>? Cover { get; set; }
+
     }
 }

@@ -11,6 +11,8 @@
         public string Description { get; set; } = string.Empty;
         public int CategoryID { get; set; }
         public string CategoryName { get; set; } = string.Empty;
+
+        public List<string>? Images { get; set; }
     }
 }
 
