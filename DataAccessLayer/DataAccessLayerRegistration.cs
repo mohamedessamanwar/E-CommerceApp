@@ -1,5 +1,7 @@
 ﻿using DataAccessLayer.Data.Context;
 using DataAccessLayer.Repositories.AddessRepo;
+using DataAccessLayer.Repositories.OrderItemRepo;
+using DataAccessLayer.Repositories.OrderRepo;
 using DataAccessLayer.Repositories.ProductRepo;
 using DataAccessLayer.Repositories.ShoppingCartRepo;
 using DataAccessLayer.UnitOfWorkRepo;
@@ -16,7 +18,9 @@ namespace DataAccessLayer
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IAddressRepo, AddressRepo>();
-           services.AddScoped<IShoppiingCartRepo,ShoppingCartRepo>();
+            services.AddScoped<IShoppiingCartRepo,ShoppingCartRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
+            services.AddScoped<IOrderItemRepo, OrderItemRepo>();   
             return services;
         }
 

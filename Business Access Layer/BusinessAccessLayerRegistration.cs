@@ -1,5 +1,6 @@
 ﻿using Business_Access_Layer.Services.AuthService;
 using BusinessAccessLayer.Services.AddressService;
+using BusinessAccessLayer.Services.OrderService;
 using BusinessAccessLayer.Services.ProductService;
 using BusinessAccessLayer.Services.ShoppingCartService;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace BusinessAccessLayer
             services.AddScoped<IAuth, AuthService>();
             services.AddScoped<IAddressService, AddressService>();  
             services.AddScoped<IShoppingCartService,ShoppingCartService>();
+            services.AddScoped<IOrderService, OrderService>();  
             services.AddSingleton<Locke>();
             return services;
         }

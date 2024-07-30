@@ -11,6 +11,8 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
     public interface IShoppingCartService
     {
         Task<CreateStatus<ShoppingCartCreateView>> CreateShoppingCart(ShoppingCartCreateView shoppingCartCreateView);
-        Task<ShoppingCartView?> ViewShoppingCart(string userId); 
+        Task<ShoppingCartView?> ViewShoppingCart(string userId);
+
+        Task<int> ClearCartAsync(string userId); 
     }
 }

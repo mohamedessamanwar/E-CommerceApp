@@ -25,7 +25,7 @@ namespace E_CommerceApp.Controllers
         }
          #region createCart
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> CreateShoppingCart(ShoppingCartCreateView shoppingCartCreateView)
         {
             if (!ModelState.IsValid)
@@ -43,7 +43,7 @@ namespace E_CommerceApp.Controllers
             var product = await productServices.ProductWithCategory(idp);
             if (product == null) { return NewResult(new ResponseHandler().NotFound<ShoppingCartCreateView>("Not Found Product!")); }
             var userIdFromToken = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
-            shoppingCartCreateView.UserId = "a877ffd6-71b9-4eae-8f70-3f02774fe1ae";
+            shoppingCartCreateView.UserId = userIdFromToken;  //"a877ffd6-71b9-4eae-8f70-3f02774fe1ae";
             var result = await shoppingCartService.CreateShoppingCart(shoppingCartCreateView);
             if (result.Status == false)
             {

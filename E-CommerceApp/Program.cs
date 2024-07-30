@@ -57,6 +57,8 @@ namespace E_CommerceApp
             builder.Services.BusinessAccessLayer();
             builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSetting"));
+            builder.Services.Configure<StripeSitting>(builder.Configuration.GetSection(nameof(Stripe)));
+
             builder.Services.AddTransient<IMailingService, MailingService>();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ECommerceContext>()

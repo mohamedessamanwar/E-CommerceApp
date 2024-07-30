@@ -32,7 +32,12 @@ namespace DataAccessLayer.Repositories.GenericRepo
             context.Set<T>().Remove(entity);
 
         }
+        public void DeleteBulk(IEnumerable<T> entities)
+        {
+            context.Set<T>().RemoveRange(entities);
+        }
 
-       
+
+
     }
 }

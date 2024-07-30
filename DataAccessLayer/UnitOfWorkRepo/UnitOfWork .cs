@@ -1,5 +1,7 @@
 ﻿using DataAccessLayer.Data.Context;
 using DataAccessLayer.Repositories.AddessRepo;
+using DataAccessLayer.Repositories.OrderItemRepo;
+using DataAccessLayer.Repositories.OrderRepo;
 using DataAccessLayer.Repositories.ProductRepo;
 using DataAccessLayer.Repositories.ShoppingCartRepo;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +16,17 @@ namespace DataAccessLayer.UnitOfWorkRepo
         public IProductRepository productRepository { get; }
         public IAddressRepo addressRepo { get; }
         public IShoppiingCartRepo shoppiingCartRepo { get; }
-       // private IDbTransaction _transaction;
+        public IOrderRepo orderRepo { get; }
+        public IOrderItemRepo orderItemRepo { get; }
+        // private IDbTransaction _transaction;
         public UnitOfWork(ECommerceContext context)
         {
             this._context = context;
             this.productRepository = new ProductRepository(context);
             this.addressRepo = new AddressRepo(_context);
             this.shoppiingCartRepo = new ShoppingCartRepo(_context);
+            this.orderRepo = new OrderRepo(_context);
+            orderItemRepo = new OrderItemRepo(_context);
         }
         public int Complete()
         {

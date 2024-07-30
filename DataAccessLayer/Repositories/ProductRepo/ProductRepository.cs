@@ -63,7 +63,7 @@ namespace DataAccessLayer.Repositories.ProductRepo
             return  await _context.ProductWithCategories.FromSqlRaw($"ProductWithCategory @id", Idparam).ToListAsync();
 
         }
-        public async Task<Product?> GitId(int Id)
+        public async Task<Product?> GetProductWithLock(int Id)
         {
             return await _context.Products
                .FromSqlRaw("SELECT * FROM Products WITH (UPDLOCK, ROWLOCK) WHERE Id = {0}", Id)

@@ -327,7 +327,7 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
                         using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
                         {
                             // Get the product with a lock
-                            var product = await unitOfWork.productRepository.GitId(shoppingCartCreateView.ProductId);
+                            var product = await unitOfWork.productRepository.GetProductWithLock(shoppingCartCreateView.ProductId);
 
                             Console.WriteLine(product.Count);
 
@@ -517,6 +517,14 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
         //    }
         //} 
         #endregion
+
+        public async Task<int> ClearCartAsync(string userId)
+        {
+            var carts = await unitOfWork.shoppiingCartRepo.GetShoppingCartsByUserCart(userId);
+            unitOfWork.shoppiingCartRepo.DeleteBulk(carts);
+            return unitOfWork.Complete();
+
+        }
 
 
 

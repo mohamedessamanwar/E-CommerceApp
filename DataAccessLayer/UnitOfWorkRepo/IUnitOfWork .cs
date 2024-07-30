@@ -1,4 +1,6 @@
 ﻿using DataAccessLayer.Repositories.AddessRepo;
+using DataAccessLayer.Repositories.OrderItemRepo;
+using DataAccessLayer.Repositories.OrderRepo;
 using DataAccessLayer.Repositories.ProductRepo;
 using DataAccessLayer.Repositories.ShoppingCartRepo;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -16,5 +18,7 @@ namespace DataAccessLayer.UnitOfWorkRepo
         IProductRepository productRepository { get; }
         IAddressRepo addressRepo { get; }
         IShoppiingCartRepo shoppiingCartRepo { get; }
+        IOrderRepo orderRepo { get; }
+        IOrderItemRepo orderItemRepo { get; }
     }
 }
