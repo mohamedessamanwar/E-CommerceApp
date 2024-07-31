@@ -10,6 +10,7 @@ namespace E_CommerceApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class ProductController : BaseController
     {
         private readonly IProductServices productServices;
@@ -20,11 +21,11 @@ namespace E_CommerceApp.Controllers
         [HttpGet]
         public async Task<IActionResult> ProductsWithCategory()
         {
-            productServices.ProductsWithCategory();
-            //List<ProductWithCategoryDto> products = await  productServices.ProductsWithCategory();
-            //if (products.Count == 0)
-            //    return NewResult(new ResponseHandler().NotFound<List<ProductWithCategoryDto>>("Not Found Product"));
-            return NewResult(new ResponseHandler().Success("mmm"));
+          //  productServices.ProductsWithCategory();
+            List<ProductWithCategoryDto> products = await productServices.ProductsWithCategory();
+            if (products.Count == 0)
+                return NewResult(new ResponseHandler().NotFound<List<ProductWithCategoryDto>>("Not Found Product"));
+            return NewResult(new ResponseHandler().Success(products));
         }
         [HttpGet("ProductWithPagination")]
         public async Task<IActionResult> ProductWithPagination([FromQuery] Pagination pagination)

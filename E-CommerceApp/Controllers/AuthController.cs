@@ -1,5 +1,5 @@
 ﻿using Business_Access_Layer.DTOS.AuthDtos;
-using Business_Access_Layer.Services.AuthService;
+using BusinessAccessLayer.Services.AuthService;
 using BusinessAccessLayer.DTOS.AuthDtos;
 using Microsoft.AspNetCore.Mvc;
 

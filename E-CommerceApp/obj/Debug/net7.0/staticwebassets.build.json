@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "e+zoqDpnJ4JuTzZkXDl26dszX0b06T/uJ/e/louZmx4=",
+  "Hash": "xpfLnRQDr4IKXNzqavGhoZKdNIidTT8oIlg4UbA3Ojo=",
   "Source": "E-CommerceApp",
   "BasePath": "_content/E-CommerceApp",
   "Mode": "Default",
@@ -1174,6 +1174,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Product\\3de0d1a6-ee11-4017-a813-a10318c0844c.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\448e06fe-6e3e-4787-af16-674c1c6de8af.jpg",
+      "SourceId": "E-CommerceApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "BasePath": "_content/E-CommerceApp",
+      "RelativePath": "Images/Product/448e06fe-6e3e-4787-af16-674c1c6de8af.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Product\\448e06fe-6e3e-4787-af16-674c1c6de8af.jpg"
     },
     {
       "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\74d9e0c2-9d96-4c54-80da-15a7923d561e.jpg",

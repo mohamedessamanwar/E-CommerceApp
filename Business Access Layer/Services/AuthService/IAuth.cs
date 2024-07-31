@@ -2,7 +2,7 @@
 using BusinessAccessLayer.DTOS.AuthDtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Business_Access_Layer.Services.AuthService
+namespace BusinessAccessLayer.Services.AuthService
 {
     public interface IAuth
     {

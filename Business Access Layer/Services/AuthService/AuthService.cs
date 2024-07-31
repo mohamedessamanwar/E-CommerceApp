@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Web;
 
-namespace Business_Access_Layer.Services.AuthService
+namespace BusinessAccessLayer.Services.AuthService
 {
     public class AuthService : IAuth
     {

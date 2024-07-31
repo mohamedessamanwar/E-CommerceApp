@@ -43,7 +43,7 @@ namespace E_CommerceApp.Controllers
             {
                 return NewResult(new ResponseHandler().BadRequest<OrderCreateDto>(result.Massage));
             }
-            return Ok(result.SessionUrl);
+            return NewResult(new ResponseHandler().Success<OrderAddState>(result)); 
 
         }
 
@@ -55,7 +55,7 @@ namespace E_CommerceApp.Controllers
             if (result.Status == false) {
                return NewResult(new ResponseHandler().BadRequest<OrderPaymentStatus>(result.StatusMessage));
             }         
-            return Ok(result.StatusMessage);
+            return NewResult(new ResponseHandler().Success<string>(result.StatusMessage)); ;
         }
         [HttpPost]
         [Route("cancelorder/{orderId}")]

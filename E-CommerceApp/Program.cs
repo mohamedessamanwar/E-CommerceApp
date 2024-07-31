@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using BusinessAccessLayer;
 using BusinessAccessLayer.DTOS;
 using BusinessAccessLayer.Middleware;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using Stripe;
 using System.IO;
 using System.Text;
 namespace E_CommerceApp
@@ -53,16 +55,18 @@ namespace E_CommerceApp
                 });
             });
             #endregion
-            builder.Services.DataAccessLayer();
-            builder.Services.BusinessAccessLayer();
-            builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
-            builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSetting"));
-            builder.Services.Configure<StripeSitting>(builder.Configuration.GetSection(nameof(Stripe)));
-
-            builder.Services.AddTransient<IMailingService, MailingService>();
+            builder.Services.DataAccessLayer(builder.Configuration);
+            builder.Services.BusinessAccessLayer(builder.Configuration);
+            #region Option . 
+            // builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+            // builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSetting"));
+            // builder.Services.Configure<StripeSitting>(builder.Configuration.GetSection(nameof(Stripe)));
+            //builder.Services.AddTransient<IMailingService, MailingService>(); 
+            #endregion
+            #region EF
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ECommerceContext>()
-            .AddDefaultTokenProviders();
+               .AddEntityFrameworkStores<ECommerceContext>()
+               .AddDefaultTokenProviders();
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -83,8 +87,23 @@ namespace E_CommerceApp
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
                  };
              });
-           
-           // builder.Services.AddLogging(); // Add logging services
+            #endregion
+            #region Rate Limit 
+            //The above code registers the required services for rate limiting and configures the IP rate limiting options.
+            //It uses an in-memory cache for storing rate limit counters.
+            // Add services to the container
+            builder.Services.AddMemoryCache();
+            builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+            builder.Services.Configure<IpRateLimitPolicies>(builder.Configuration.GetSection("IpRateLimitPolicies"));
+            builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+            // Add the processing strategy
+            builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+            #endregion
+
+            // builder.Services.AddLogging(); // Add logging services
             builder.Services.AddControllersWithViews(options =>
             {
                 //can us DPI in this class .  
@@ -102,6 +121,7 @@ namespace E_CommerceApp
             }
             app.UseCors("AllowAllDomains");
             app.UseMiddleware<ErrorHandlerMiddleware>();
+          
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -117,13 +137,14 @@ namespace E_CommerceApp
                 //The files in this directory will be accessible using the "/Images/Product" URL path .
                 RequestPath = "/Images/Product"
             });
-           // you can add another path to serve static files in addition to the existing path.
-           // To do that, you can add another UseStaticFiles middleware configuration with
-           // a different FileProvider and RequestPath.
-
+            // you can add another path to serve static files in addition to the existing path.
+            // To do that, you can add another UseStaticFiles middleware configuration with
+            // a different FileProvider and RequestPath.
+            app.UseIpRateLimiting();
 
             app.MapControllers();
             app.Run();
+            // serlog . 
             Log.CloseAndFlush();
         }
     }
