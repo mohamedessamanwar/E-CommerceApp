@@ -3,6 +3,7 @@ using BusinessAccessLayer.DTOS;
 using BusinessAccessLayer.DTOS.AuthDtos;
 using BusinessAccessLayer.Services.Email;
 using DataAccessLayer.Data.Models;
+using DataAccessLayer.UnitOfWorkRepo;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -19,12 +20,14 @@ namespace BusinessAccessLayer.Services.AuthService
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JWT _jwt;
         private readonly IMailingService _mailingService;
-        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt = null, IMailingService mailingService = null)
+        private readonly IUnitOfWork unitOfWork ;
+        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt = null, IMailingService mailingService = null, IUnitOfWork unitOfWork = null)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _jwt = jwt.Value;
             _mailingService = mailingService;
+            this.unitOfWork = unitOfWork;
         }
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
@@ -207,6 +210,23 @@ namespace BusinessAccessLayer.Services.AuthService
 
 
         }
+        #region SendCodeForgetPasswardV1
+        //public async Task<AuthModel> SendCodeForgetPassward(string Email)
+        //{
+        //    var user = await _userManager.FindByEmailAsync(Email);
+        //    if (user is null)
+        //    {
+        //        return new AuthModel { IsAuthenticated = false, Message = "Email is not found" };
+        //    }
+        //    string Code = GenerateKey(6);
+        //    user.Code = Code;
+        //    await _userManager.UpdateAsync(user);
+        //    await _mailingService.SendEmailAsync(Email, "Your Code", Code);
+        //    return new AuthModel { IsAuthenticated = true, Message = "Code is Send" }; ;
+
+        //} 
+        #endregion
+
         public async Task<AuthModel> SendCodeForgetPassward(string Email)
         {
             var user = await _userManager.FindByEmailAsync(Email);
@@ -214,35 +234,79 @@ namespace BusinessAccessLayer.Services.AuthService
             {
                 return new AuthModel { IsAuthenticated = false, Message = "Email is not found" };
             }
-            string Code = GenerateKey(6);
-            user.Code = Code;
-            await _userManager.UpdateAsync(user);
+            var Token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var Code = $"https://localhost:44367/api/Auth/confirm-Code?token={Token}";
+            var userToken = new UserToken()
+            {
+                UserEmail = Email,
+                ApplicationUserId = user.Id,
+                Token = Token,
+                CreateAt = DateTime.UtcNow
+            };
+            await unitOfWork.userToken.AddAsync(userToken);
+            unitOfWork.Complete();
             await _mailingService.SendEmailAsync(Email, "Your Code", Code);
-            return new AuthModel { IsAuthenticated = true, Message = "Code is Send" }; ;
+            return new AuthModel { IsAuthenticated = true, Message = "Code is Send" }; 
 
-        }
-        public async Task<AuthModel> ValidationCode(ConfirmCode confirmCode)
+          }
+        #region ValidationCodeV1
+        //    public async Task<AuthModel> ValidationCode(ConfirmCode confirmCode)
+        //{
+        //    var user = await _userManager.FindByEmailAsync(confirmCode.Email);
+        //    if (user is null)
+        //    {
+        //        return new AuthModel { IsAuthenticated = false, Message = "User is not found" };
+        //    }
+        //    if (confirmCode.Code != user.Code)
+        //    {
+        //        return new AuthModel { IsAuthenticated = false, Message = "Code is not Correct" };
+        //    }
+        //    return new AuthModel { IsAuthenticated = true, Message = "Code is correct" };
+        //} 
+        #endregion
+        public async Task<AuthModel> ValidationCode(string token)
         {
-            var user = await _userManager.FindByEmailAsync(confirmCode.Email);
+            var user = await unitOfWork.userToken.GetUserToken(token);
             if (user is null)
             {
-                return new AuthModel { IsAuthenticated = false, Message = "User is not found" };
+                return new AuthModel { IsAuthenticated = false, Message = "Token is not found" };
             }
-            if (confirmCode.Code != user.Code)
-            {
-                return new AuthModel { IsAuthenticated = false, Message = "Code is not Correct" };
-            }
-            return new AuthModel { IsAuthenticated = true, Message = "Code is correct" };
+            return new AuthModel { IsAuthenticated = true, Message = "Token is correct" };
         }
+        #region Reset_Password
+        //public async Task<AuthModel> Reset_Password(UserResetPasswordDto userResetPasswordDto)
+        //{
+        //    var user = await _userManager.FindByEmailAsync(userResetPasswordDto.Email);
+        //    if (user is null)
+        //    {
+        //        return new AuthModel { IsAuthenticated = false, Message = "User is not found" };
+        //    }
+        //    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        //    var Result = await _userManager.ResetPasswordAsync(user, token, userResetPasswordDto.NewPassword);
+        //    if (!Result.Succeeded)
+        //    {
+        //        string errors = string.Empty;
+        //        // StringBuilder errors = new StringBuilder();
+        //        foreach (var error in Result.Errors)
+        //        {
+        //            // error += e.Description;
+        //            errors += $"{error.Description},";
+        //            //errors.Append($"{error.Description},");
+        //            return new AuthModel { Message = errors };
+        //        }
+        //    }
+        //    return new AuthModel { IsAuthenticated = true, Message = "Password is Reset" };
+        //} 
+        #endregion
         public async Task<AuthModel> Reset_Password(UserResetPasswordDto userResetPasswordDto)
         {
-            var user = await _userManager.FindByEmailAsync(userResetPasswordDto.Email);
-            if (user is null)
+            var token = await unitOfWork.userToken.GetUserToken(userResetPasswordDto.Token);
+            if (token is null)
             {
-                return new AuthModel { IsAuthenticated = false, Message = "User is not found" };
+                return new AuthModel { IsAuthenticated = false, Message = "Token is not found" };
             }
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var Result = await _userManager.ResetPasswordAsync(user, token, userResetPasswordDto.NewPassword);
+            ApplicationUser? user = await _userManager.FindByIdAsync(token.ApplicationUserId);
+            var Result = await _userManager.ResetPasswordAsync(user, token.Token, userResetPasswordDto.NewPassword);
             if (!Result.Succeeded)
             {
                 string errors = string.Empty;
@@ -255,12 +319,9 @@ namespace BusinessAccessLayer.Services.AuthService
                     return new AuthModel { Message = errors };
                 }
             }
+            unitOfWork.userToken.Delete(token);
+            unitOfWork.Complete();
             return new AuthModel { IsAuthenticated = true, Message = "Password is Reset" };
         }
-
-        //public Task GetTokenAsync(DTOS.Response.TokenRequestModel tokenRequestModel)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

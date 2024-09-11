@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer.Data.Models
 {
-    public class ProductWithCategory
+    public class ProductWithCategory : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

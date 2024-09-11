@@ -102,7 +102,6 @@ namespace E_CommerceApp
             // Add the processing strategy
             builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
             #endregion
-
             // builder.Services.AddLogging(); // Add logging services
             builder.Services.AddControllersWithViews(options =>
             {

@@ -38,7 +38,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 24, 22, 9, 45, 250, DateTimeKind.Local).AddTicks(8560));
+                        .HasDefaultValue(new DateTime(2024, 8, 30, 1, 7, 27, 399, DateTimeKind.Local).AddTicks(1137));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -1037,6 +1037,43 @@ namespace DataAccessLayer.Migrations
                     b.ToView(null, (string)null);
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Liked")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("reviews");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Data.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
@@ -1051,7 +1088,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("CreateAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 24, 22, 9, 45, 252, DateTimeKind.Local).AddTicks(9766));
+                        .HasDefaultValue(new DateTime(2024, 8, 30, 1, 7, 27, 401, DateTimeKind.Local).AddTicks(3305));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -1059,7 +1096,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 24, 22, 9, 45, 253, DateTimeKind.Local).AddTicks(272));
+                        .HasDefaultValue(new DateTime(2024, 8, 30, 1, 7, 27, 401, DateTimeKind.Local).AddTicks(3807));
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -1072,6 +1109,38 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("shoppingCarts");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.UserToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreateAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("userTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1278,6 +1347,25 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Data.Models.Review", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Data.Models.ShoppingCart", b =>
                 {
                     b.HasOne("DataAccessLayer.Data.Models.Product", "Product")
@@ -1295,6 +1383,17 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Data.Models.UserToken", b =>
+                {
+                    b.HasOne("DataAccessLayer.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1368,6 +1467,8 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("DataAccessLayer.Data.Models.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

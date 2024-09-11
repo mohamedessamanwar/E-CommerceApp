@@ -213,43 +213,62 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
         #region V2
         //public async Task<CreateStatus<ShoppingCartCreateView>> CreateShoppingCart(ShoppingCartCreateView shoppingCartCreateView)
         //{
+        //    int maxRetryAttempts = 3;
+        //    int retryCount = 0;
+
+        //    while (retryCount < maxRetryAttempts)
+        //    {
         //        try
         //        {
-        //        using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
-        //        {
-        //            // Get the product
-        //            var product = await unitOfWork.productRepository.GetByIdAsync(shoppingCartCreateView.ProductId);
-        //                Console.WriteLine(product.Count);
-
-        //                // Check if product is null or if there is not enough stock
-        //                if (product == null || product.Count < shoppingCartCreateView.Count)
+        //            using (var context = new ECommerceContext())
+        //            {
+        //                // Set the command timeout to 120 seconds
+        //                context.Database.SetCommandTimeout(120);
+        //                using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
         //                {
-        //                    return new CreateStatus<ShoppingCartCreateView>()
+        //                    // Get the product with a lock
+        //                    var product = await unitOfWork.productRepository.GetByIdAsync(shoppingCartCreateView.ProductId);
+
+        //                    Console.WriteLine(product.Count);
+
+        //                    // Check if product is null or if there is not enough stock
+        //                    if (product == null || product.Count < shoppingCartCreateView.Count)
         //                    {
-        //                        Value = shoppingCartCreateView,
-        //                        Massage = "count is not enough",
-        //                        Status = false
-        //                    };
-        //                }
+        //                        return new CreateStatus<ShoppingCartCreateView>()
+        //                        {
+        //                            Value = shoppingCartCreateView,
+        //                            Massage = "Not enough product in stock",
+        //                            Status = false
+        //                        };
+        //                    }
 
-        //                // Get the user's shopping cart
-        //                var carts = await unitOfWork.shoppiingCartRepo.GetShoppingCartsByUserCart(shoppingCartCreateView.UserId);
-        //                var cart = carts?.FirstOrDefault(s => s.ProductId == shoppingCartCreateView.ProductId);
-
-        //                if (carts == null || cart == null)
-        //                {
-        //                    // Map and add new cart item
-        //                    var newCart = mapper.Map<ShoppingCart>(shoppingCartCreateView);
-        //                    await unitOfWork.shoppiingCartRepo.AddAsync(newCart);
-
-        //                    // Deduct product count
+        //                    // Deduct the product count
         //                    product.Count -= shoppingCartCreateView.Count;
-        //                    unitOfWork.productRepository.Update(product);
+        //                    unitOfWork.productRepository.Update(product, nameof(product.Count));
+        //                    unitOfWork.Complete();
+        //                    await Task.Delay(10000);
 
-        //                    // Save changes
+        //                    var carts = await unitOfWork.shoppiingCartRepo.GetShoppingCartsByUserCart(shoppingCartCreateView.UserId);
+        //                    var cart = carts?.FirstOrDefault(s => s.ProductId == shoppingCartCreateView.ProductId);
+
+        //                    if (carts == null || cart == null)
+        //                    {
+        //                        // Map and add new cart item
+        //                        var newCart = mapper.Map<ShoppingCart>(shoppingCartCreateView);
+        //                        await unitOfWork.shoppiingCartRepo.AddAsync(newCart);
+        //                    }
+        //                    else
+        //                    {
+        //                        // Update existing cart item
+        //                        cart.Count += shoppingCartCreateView.Count;
+        //                        unitOfWork.shoppiingCartRepo.Update(cart,nameof(cart.Count));
+        //                    }
+
         //                    int result = unitOfWork.Complete();
+
         //                    if (result == 0)
         //                    {
+        //                        transaction.Rollback();
         //                        return new CreateStatus<ShoppingCartCreateView>()
         //                        {
         //                            Value = shoppingCartCreateView,
@@ -258,36 +277,7 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
         //                        };
         //                    }
 
-        //                  //  scope.Complete();
-        //                    return new CreateStatus<ShoppingCartCreateView>()
-        //                    {
-        //                        Value = shoppingCartCreateView,
-        //                        Massage = "added",
-        //                        Status = true
-        //                    };
-        //                }
-        //                else
-        //                {
-        //                    // Update existing cart item
-        //                    cart.Count += shoppingCartCreateView.Count;
-
-        //                    // Deduct product count
-        //                    product.Count -= shoppingCartCreateView.Count;
-        //                    unitOfWork.productRepository.Update(product);
-
-        //                    // Save changes
-        //                    int result = unitOfWork.Complete();
-        //                    if (result == 0)
-        //                    {
-        //                        return new CreateStatus<ShoppingCartCreateView>()
-        //                        {
-        //                            Value = shoppingCartCreateView,
-        //                            Massage = "Try again",
-        //                            Status = false
-        //                        };
-        //                    }
-
-        //                 //   scope.Complete();
+        //                    transaction.Commit();
         //                    return new CreateStatus<ShoppingCartCreateView>()
         //                    {
         //                        Value = shoppingCartCreateView,
@@ -299,14 +289,39 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
         //        }
         //        catch (Exception ex)
         //        {
-        //            return new CreateStatus<ShoppingCartCreateView>()
+        //            if (IsTransientError(ex))
         //            {
-        //                Value = shoppingCartCreateView,
-        //                Massage = " try again",
-        //                Status = false
-        //            };
+        //                retryCount++;
+        //                if (retryCount >= maxRetryAttempts)
+        //                {
+        //                    return new CreateStatus<ShoppingCartCreateView>()
+        //                    {
+        //                        Value = shoppingCartCreateView,
+        //                        Massage = "Max retry attempts exceeded. Please try again later.",
+        //                        Status = false
+        //                    };
+        //                }
+        //                await Task.Delay(3000); // Optional: Add a delay before retrying
+        //            }
+        //            else
+        //            {
+        //                return new CreateStatus<ShoppingCartCreateView>()
+        //                {
+        //                    Value = shoppingCartCreateView,
+        //                    Massage = ex.Message,
+        //                    Status = false
+        //                };
+        //            }
         //        }
         //    }
+
+        //    return new CreateStatus<ShoppingCartCreateView>()
+        //    {
+        //        Value = shoppingCartCreateView,
+        //        Massage = "An unexpected error occurred.",
+        //        Status = false
+        //    };
+        //}
 
         #endregion
 
@@ -323,7 +338,7 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
                     using (var context = new ECommerceContext())
                     {
                         // Set the command timeout to 120 seconds
-                        context.Database.SetCommandTimeout(120);
+                        //context.Database.SetCommandTimeout(120);
                         using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
                         {
                             // Get the product with a lock
@@ -344,7 +359,7 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
 
                             // Deduct the product count
                             product.Count -= shoppingCartCreateView.Count;
-                            unitOfWork.productRepository.Update(product);
+                            unitOfWork.productRepository.Update(product, nameof(product.Count));
                             unitOfWork.Complete();
                             await Task.Delay(10000);
 
@@ -361,7 +376,7 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
                             {
                                 // Update existing cart item
                                 cart.Count += shoppingCartCreateView.Count;
-                                unitOfWork.shoppiingCartRepo.Update(cart);
+                                unitOfWork.shoppiingCartRepo.Update(cart,nameof(cart.Count));
                             }
 
                             int result = unitOfWork.Complete();
@@ -387,7 +402,7 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (System.Exception ex)
                 {
                     if (IsTransientError(ex))
                     {
@@ -422,8 +437,8 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
                 Status = false
             };
         }
-    
-        private bool IsTransientError(Exception ex)
+
+        private bool IsTransientError(System.Exception ex)
         {
             if (ex is DbUpdateException dbUpdateEx && dbUpdateEx.InnerException is SqlException sqlEx)
             {

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RraPLHPK/ak=",
+  "dgSpecHash": "BIeMMfaBF4s=",
   "success": true,
   "projectFilePath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\AL-FAJR\\.nuget\\packages\\dapper\\2.1.35\\dapper.2.1.35.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\fluentvalidation\\7.0.0\\fluentvalidation.7.0.0.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.0\\microsoft.aspnetcore.authentication.jwtbearer.7.0.0.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.0\\microsoft.aspnetcore.cryptography.internal.7.0.0.nupkg.sha512",

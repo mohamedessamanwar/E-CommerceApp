@@ -1,22 +1,36 @@
-﻿using DataAccessLayer.Data.Context;
+﻿using Dapper;
+using DataAccessLayer.Data.Context;
 using DataAccessLayer.Data.Models;
 using DataAccessLayer.Repositories.GenericRepo;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DataAccessLayer.Repositories.ProductRepo
 {
     public class ProductRepository : GenericRepo<Product>, IProductRepository
     {
         private readonly ECommerceContext _context;
-        public ProductRepository(ECommerceContext context) : base(context)
+        public readonly DapperContext _dapperContext;
+        public ProductRepository(ECommerceContext context, DapperContext dapperContext) : base(context)
         {
             _context = context;
+            _dapperContext = dapperContext;
         }
 
+        //public async Task<IEnumerable<Product>> GetProductsWithCategories()
+        //{
+        //    return await _context.Products.AsNoTracking().Include(p => p.Category).Include(p=> p.Images).ToListAsync();
+        //}
         public async Task<IEnumerable<Product>> GetProductsWithCategories()
         {
-            return await _context.Products.AsNoTracking().Include(p => p.Category).Include(p=> p.Images).ToListAsync();
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                string sql = "select * from Products join categories on  Products.CategoryID = categories.Id";
+                return await connection.QueryAsync<Product>(sql);
+            }
         }
         public async Task<IEnumerable<Product>> GetProductsWithPagination(int PageNumber, int PageSize, string[]? OrderBy, string? Search)
         {
@@ -66,8 +80,58 @@ namespace DataAccessLayer.Repositories.ProductRepo
         public async Task<Product?> GetProductWithLock(int Id)
         {
             return await _context.Products
-               .FromSqlRaw("SELECT * FROM Products WITH (UPDLOCK, ROWLOCK) WHERE Id = {0}", Id)
+               .FromSqlRaw("SELECT * FROM Products WITH (UPDLOCK, ROWLOCK) WHERE Id = {0}", Id).AsNoTracking()
                 .FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<Product>> GetProductsWithFillter(int pageNum = 1,int orderBy=0 , string category=null , int fees = 0)
+        {
+            var products = context.Products.Include(p=> p.Category).Include(p=> p.Images)
+                .Include(p=> p.Reviews).AsNoTracking();
+
+            if(!category.IsNullOrEmpty())
+            {
+               products =  products.Where(p => p.Category.Name == category);
+            }
+            if (fees > 0)
+            {
+                switch (fees)
+                {
+                    case 1:
+                        products = products.Where(p => p.CurrentPrice > 0 && p.CurrentPrice < 9999);
+                        break;
+
+                    case 2:
+                        products = products.Where(p => p.CurrentPrice >= 10000 && p.CurrentPrice < 20000);
+                        break;
+
+                    case 3:
+                        products = products.Where(p => p.CurrentPrice >= 20000 && p.CurrentPrice < 30000);
+                        break;
+
+                    case 4:
+                        products = products.Where(p => p.CurrentPrice >= 30000 && p.CurrentPrice < 50000);
+                        break;
+
+                    case 5:
+                        products = products.Where(p => p.CurrentPrice >= 50000);
+                        break;
+
+                    default:
+                        // Optionally, you can handle cases where the fee doesn't match any category.
+                        break;
+                }
+            }
+
+            if (orderBy > 0)
+            {
+                products = orderBy switch
+                {
+                    1 => products.OrderBy(p => p.CurrentPrice),
+                    2 => products.OrderByDescending(p => p.Reviews.Any() ? p.Reviews.Average(a => a.Rate) : 0),
+                };
+            }
+             products =products.Skip((pageNum - 1) * 10).Take(10);
+            return await products.ToListAsync();
         }
 
     }

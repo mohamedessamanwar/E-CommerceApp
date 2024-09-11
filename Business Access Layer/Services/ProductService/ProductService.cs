@@ -71,6 +71,13 @@ namespace BusinessAccessLayer.Services.ProductService
             }
             return images;
         }
+        public async Task<List<ViewProduct>> GetProductWithPaginationV2(int pageNum = 1, int orderBy = 0, string category = null, int fees = 0)
+        {
+            var products = await unitOfWork.productRepository.GetProductsWithFillter(pageNum,orderBy,category,fees);
+            var productResult = _mapper.Map<List<ViewProduct>>(products);
+            return productResult;
+        }
+
 
 
     }

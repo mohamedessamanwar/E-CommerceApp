@@ -10,9 +10,10 @@ namespace E_CommerceApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+    
     public class ProductController : BaseController
     {
+     
         private readonly IProductServices productServices;
         public ProductController(IProductServices productServices)
         {
@@ -31,6 +32,14 @@ namespace E_CommerceApp.Controllers
         public async Task<IActionResult> ProductWithPagination([FromQuery] Pagination pagination)
         {
             var products = await productServices.GetProductWithPagination(pagination);
+            if (products.Count == 0)
+                return NewResult(new ResponseHandler().NotFound<List<ViewProduct>>("Not Found Product"));
+            return NewResult(new ResponseHandler().Success(products));
+        }
+        [HttpGet("ProductWithPagination/V2")]
+        public async Task<IActionResult> ProductWithPaginationv2([FromQuery]int pageNum = 1, [FromQuery] int orderBy = 0, [FromQuery] string category = null, [FromQuery] int fees = 0)
+        {
+            var products = await productServices.GetProductWithPaginationV2(pageNum, orderBy, category, fees);
             if (products.Count == 0)
                 return NewResult(new ResponseHandler().NotFound<List<ViewProduct>>("Not Found Product"));
             return NewResult(new ResponseHandler().Success(products));
@@ -54,7 +63,7 @@ namespace E_CommerceApp.Controllers
         [HttpGet]
         [Route(("GetProduct/{Id}"))]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> ProductWithCategory(int Id)
+        public async Task<IActionResult> GetProduct(int Id)
         {
             var products = await productServices.ProductWithCategory(Id);
             if (products == null)

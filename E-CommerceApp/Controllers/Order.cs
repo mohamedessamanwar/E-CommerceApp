@@ -2,6 +2,7 @@
 using BusinessAccessLayer.DTOS.OrderDtos;
 using BusinessAccessLayer.DTOS.Response;
 using BusinessAccessLayer.DTOS.ShoppingCart;
+using BusinessAccessLayer.Services.AddressService;
 using BusinessAccessLayer.Services.Email;
 using BusinessAccessLayer.Services.OrderService;
 using BusinessAccessLayer.Services.ShoppingCartService;
@@ -17,10 +18,12 @@ namespace E_CommerceApp.Controllers
     {
         private readonly IOrderService orderService;
         private readonly IMailingService mailingService;
-        public Order(IOrderService orderService, IMailingService mailingService)
+        private readonly IAddressService addressService;
+        public Order(IOrderService orderService, IMailingService mailingService, IAddressService addressService)
         {
             this.orderService = orderService;
             this.mailingService = mailingService;
+            this.addressService = addressService;
         }
         [HttpPost]
         [Authorize]
@@ -28,16 +31,18 @@ namespace E_CommerceApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Extract the error messages
                 var errors = ModelState.Values.SelectMany(v => v.Errors)
                                    .Select(e => e.ErrorMessage)
                                    .ToList();
-
-                // Return the errors as a bad request response
                 return NewResult(new ResponseHandler().BadRequest<ShoppingCartCreateView>(string.Join(", ", errors)));
             }
+
+            var address = await addressService.GetAddressByUserId(orderCreateDto.AddressId);
+            if (address == null) {
+                return NewResult(new ResponseHandler().NotFound<string>("Address Not Found"));
+            }
             var userIdFromToken = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
-            orderCreateDto.UserId = userIdFromToken;  //"a877ffd6-71b9-4eae-8f70-3f02774fe1ae";
+            orderCreateDto.UserId = userIdFromToken;  
             var result = await orderService.AddOrder(orderCreateDto);
             if (result.State == false)
             {

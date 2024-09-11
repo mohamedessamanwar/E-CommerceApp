@@ -50,6 +50,7 @@ namespace BusinessAccessLayer.Services.AddressService
         }
         #endregion
 
+        #region View Address
         public async Task<List<ViewAddressDto>>? ViewAddressByUserId(string userId)
         {
             int threadId = Thread.CurrentThread.ManagedThreadId;
@@ -60,8 +61,23 @@ namespace BusinessAccessLayer.Services.AddressService
                 return new List<ViewAddressDto>();
             }
             var result = mapper.Map<List<ViewAddressDto>>(address);
-            return result; 
-
+            return result;
         }
+        #endregion
+
+        public async Task<ViewAddressDto>? GetAddressByUserId(int id)
+        {
+            int threadId = Thread.CurrentThread.ManagedThreadId;
+            Console.WriteLine($"Thread ID before0 awaiting: {threadId}");
+            var address = await unitOfWork.addressRepo.GetByIdAsync(id);
+            if (address == null)
+            {
+                return null;
+            }
+            var result = mapper.Map<ViewAddressDto>(address);
+            return result;
+        }
+
+
     }
 }

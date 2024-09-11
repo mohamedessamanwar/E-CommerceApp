@@ -1,4 +1,4 @@
-﻿using Business_Access_Layer.Services.AuthService;
+﻿using BusinessAccessLayer.Services.AuthService;
 using BusinessAccessLayer.DTOS;
 using BusinessAccessLayer.DTOS.AuthDtos;
 using BusinessAccessLayer.Services.Email;

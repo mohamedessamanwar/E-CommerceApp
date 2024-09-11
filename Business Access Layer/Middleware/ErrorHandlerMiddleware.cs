@@ -1,4 +1,5 @@
 ﻿using BusinessAccessLayer.DTOS.Response;
+using BusinessAccessLayer.Exception;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Text.Json;
@@ -20,7 +21,7 @@ namespace BusinessAccessLayer.Middleware
             {
                 await _next(context);
             }
-            catch (Exception error)
+            catch (System.Exception error)
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
@@ -50,13 +51,14 @@ namespace BusinessAccessLayer.Middleware
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
 
-                    //case DbUpdateException e:
-                    //    // can't update error
-                    //    responseModel.Message = e.Message;
-                    //    responseModel.StatusCode = HttpStatusCode.BadRequest;
-                    //    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    //    break;
-                    case Exception e:
+                    case CustomValidationException e:
+                        // can't update error
+                        responseModel.Message = e.Message;
+                        responseModel.StatusCode = HttpStatusCode.BadRequest;
+                        responseModel.ErrorsDic = (Dictionary<string,List<string>>) e.Errors;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        break;
+                    case System.Exception e:
                         if (e.GetType().ToString() == "ApiException")
                         {
                             responseModel.Message += e.Message;

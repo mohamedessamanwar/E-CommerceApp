@@ -10,7 +10,7 @@ namespace BusinessAccessLayer.Services.AuthService
         Task<AuthModel> RegisterAsync(RegisterModel model);
         Task<AuthModel> ValidationCode(TokenRequestModelCode model);
         Task<AuthModel> ConfirmEmail([FromQuery] string userId, [FromQuery] string token);
-        Task<AuthModel> ValidationCode(ConfirmCode confirmCode);
+        Task<AuthModel> ValidationCode(string token);
         Task<AuthModel> SendCodeForgetPassward(string Email);
         Task<AuthModel> Reset_Password(UserResetPasswordDto userResetPasswordDto);
     }

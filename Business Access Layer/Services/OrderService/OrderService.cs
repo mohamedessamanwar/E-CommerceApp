@@ -1,4 +1,5 @@
-﻿using BusinessAccessLayer.DTOS;
+﻿using AutoMapper;
+using BusinessAccessLayer.DTOS;
 using BusinessAccessLayer.DTOS.OrderDtos;
 using BusinessAccessLayer.Services.PaymentService;
 using BusinessAccessLayer.Services.ShoppingCartService;
@@ -24,11 +25,13 @@ namespace BusinessAccessLayer.Services.OrderService
         private readonly IUnitOfWork unitOfWork;
         private readonly IShoppingCartService shoppingCartService;
         private readonly IPayment paymentMethod;
-        public OrderService(IUnitOfWork unitOfWork, IShoppingCartService shoppingCartService , IPayment payment)
+        private readonly IMapper mapper;
+        public OrderService(IUnitOfWork unitOfWork, IShoppingCartService shoppingCartService, IPayment payment, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.shoppingCartService = shoppingCartService;
             this.paymentMethod = payment;
+            this.mapper = mapper;
         }
         #region add order
         public async Task<OrderAddState> AddOrder(OrderCreateDto orderCreateDto)
@@ -74,7 +77,7 @@ namespace BusinessAccessLayer.Services.OrderService
                     {
                         // lock ...
                         var product = await unitOfWork.productRepository.GetProductWithLock(cart.ProductId);
-                        if (product?.Count + cart.Count < cart.Count || product == null)
+                        if ( product == null|| product.Count + cart.Count < cart.Count )
                         {
                             transaction.Rollback();
                             return new OrderAddState
@@ -125,7 +128,7 @@ namespace BusinessAccessLayer.Services.OrderService
                     };
                 }
             } // try 
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return new OrderAddState
                 {
@@ -170,10 +173,10 @@ namespace BusinessAccessLayer.Services.OrderService
         }
         private async Task<int> UpdateOrderStatus(int id, string paymentPaid)
         {
-            var order = await unitOfWork.orderRepo.GetByIdAsync(id);
+            var order = await unitOfWork.orderRepo.GetByIdAsync(id);          
             order.OrderPaymentStatus = paymentPaid;
             order.UpdateAt = DateTime.UtcNow;
-            unitOfWork.orderRepo.Update(order);
+            unitOfWork.orderRepo.Update(order, nameof(order.OrderPaymentStatus), nameof(order.UpdateAt));
             return  unitOfWork.Complete();
         }
 

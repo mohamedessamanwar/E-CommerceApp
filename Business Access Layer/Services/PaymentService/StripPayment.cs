@@ -132,7 +132,7 @@ namespace BusinessAccessLayer.Services.PaymentService
                     };
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return new PaymentResult()
                 {

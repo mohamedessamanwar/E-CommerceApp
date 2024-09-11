@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Models
 {
-    public class Order
+    public class Order : BaseEntity
     {
-        public int Id { get; set; }
+   public int Id { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public DateTime? ShippingDate { get; set; }

@@ -3,32 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\orderservice\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\orderservice\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\controllers\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\controllers\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\controllers\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\controllers\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\businessaccesslayerregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\businessaccesslayerregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\dataaccesslayer\\unitofworkrepo\\unitofwork .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\unitofworkrepo\\unitofwork .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\dataaccesslayer\\dataaccesslayerregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\dataaccesslayerregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\paymentservice\\strippayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\paymentservice\\strippayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\shoppingcartservice\\shoppingcartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\shoppingcartservice\\shoppingcartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\paymentservice\\ipayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\paymentservice\\ipayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\dataaccesslayer\\repositories\\productrepo\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\productrepo\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\dataaccesslayer\\data\\context\\dappercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E0E5AEB-71FE-4B7F-AF4A-2A1492119990}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\data\\context\\dappercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,93 +47,99 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "OrderService.cs",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\OrderService\\OrderService.cs",
-              "RelativeDocumentMoniker": "Business Access Layer\\Services\\OrderService\\OrderService.cs",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\OrderService\\OrderService.cs",
-              "RelativeToolTip": "Business Access Layer\\Services\\OrderService\\OrderService.cs",
-              "ViewState": "AQIAAJIAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Product.cs",
+              "RelativeDocumentMoniker": "E-CommerceApp\\Controllers\\Product.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Product.cs",
+              "RelativeToolTip": "E-CommerceApp\\Controllers\\Product.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T01:00:08.499Z",
+              "WhenOpened": "2024-09-10T16:05:28.744Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Program.cs",
-              "RelativeDocumentMoniker": "E-CommerceApp\\Program.cs",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Program.cs",
-              "RelativeToolTip": "E-CommerceApp\\Program.cs",
-              "ViewState": "AQIAAIcAAAAAAAAAAAAjwJEAAAAMAAAA",
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Order.cs",
+              "RelativeDocumentMoniker": "E-CommerceApp\\Controllers\\Order.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Order.cs",
+              "RelativeToolTip": "E-CommerceApp\\Controllers\\Order.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T00:38:52.898Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ShoppingCartController.cs",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\ShoppingCartController.cs",
-              "RelativeDocumentMoniker": "E-CommerceApp\\Controllers\\ShoppingCartController.cs",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\ShoppingCartController.cs",
-              "RelativeToolTip": "E-CommerceApp\\Controllers\\ShoppingCartController.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAAACoAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T00:49:10.325Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "E-CommerceApp\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "E-CommerceApp\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAmwAsAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T00:43:18.734Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-10T16:05:23.874Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "StripPayment.cs",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
-              "RelativeDocumentMoniker": "Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
-              "RelativeToolTip": "Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "ShoppingCartService.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\ShoppingCartService\\ShoppingCartService.cs",
+              "RelativeDocumentMoniker": "Business Access Layer\\Services\\ShoppingCartService\\ShoppingCartService.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\ShoppingCartService\\ShoppingCartService.cs",
+              "RelativeToolTip": "Business Access Layer\\Services\\ShoppingCartService\\ShoppingCartService.cs",
+              "ViewState": "AQIAAEwBAAAAAAAAAAAAAGsBAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T00:41:39.274Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-07T23:51:43.147Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UnitOfWork .cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\UnitOfWorkRepo\\UnitOfWork .cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\UnitOfWorkRepo\\UnitOfWork .cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\UnitOfWorkRepo\\UnitOfWork .cs",
+              "RelativeToolTip": "DataAccessLayer\\UnitOfWorkRepo\\UnitOfWork .cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-07T23:43:27.236Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DataAccessLayerRegistration.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayerRegistration.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\DataAccessLayerRegistration.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayerRegistration.cs",
+              "RelativeToolTip": "DataAccessLayer\\DataAccessLayerRegistration.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAAA4AAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-07T23:20:29.737Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "BusinessAccessLayerRegistration.cs",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayerRegistration.cs",
-              "RelativeDocumentMoniker": "Business Access Layer\\BusinessAccessLayerRegistration.cs",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayerRegistration.cs",
-              "RelativeToolTip": "Business Access Layer\\BusinessAccessLayerRegistration.cs",
-              "ViewState": "AQIAACoAAAAAAAAAAAAUwDYAAAAQAAAA",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\appsettings.json",
+              "RelativeDocumentMoniker": "E-CommerceApp\\appsettings.json",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\appsettings.json",
+              "RelativeToolTip": "E-CommerceApp\\appsettings.json",
+              "ViewState": "AQIAACIAAAAAAAAAAAAAACYAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-07T23:11:42.452Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DapperContext.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\Data\\Context\\DapperContext.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Data\\Context\\DapperContext.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\Data\\Context\\DapperContext.cs",
+              "RelativeToolTip": "DataAccessLayer\\Data\\Context\\DapperContext.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAAAB8AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T00:41:03.835Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-07T23:10:36.901Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "IPayment.cs",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\PaymentService\\IPayment.cs",
-              "RelativeDocumentMoniker": "Business Access Layer\\Services\\PaymentService\\IPayment.cs",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\PaymentService\\IPayment.cs",
-              "RelativeToolTip": "Business Access Layer\\Services\\PaymentService\\IPayment.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAmwBIAAABCAAAA",
+              "Title": "ProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\Repositories\\ProductRepo\\ProductRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\ProductRepo\\ProductRepository.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\Repositories\\ProductRepo\\ProductRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\ProductRepo\\ProductRepository.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAABwAAABGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T00:38:40.324Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-07T23:07:40.08Z"
             }
           ]
         }

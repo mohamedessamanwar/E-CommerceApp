@@ -35,7 +35,7 @@ namespace BusinessAccessLayer.Services.Email
                 await smtpClient.SendMailAsync(message);
                 return true;
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 return false;
             }

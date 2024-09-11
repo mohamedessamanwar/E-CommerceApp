@@ -12,5 +12,6 @@ namespace BusinessAccessLayer.Services.AddressService
     {
         Task<CreateStatus<CreateAddressDto>> CreateAddress(CreateAddressDto createAddressDto);
         Task<List<ViewAddressDto>>? ViewAddressByUserId(string userId);
+        Task<ViewAddressDto>? GetAddressByUserId(int id); 
     }
 }

@@ -29,6 +29,7 @@ namespace DataAccessLayer.Data.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ECommerceContext).Assembly);
             modelBuilder.Entity<ProductWithCategory>(p => { p.HasNoKey().ToView(null); });
             modelBuilder.Entity<Image>().Property(i => i.CreatedTime).HasDefaultValueSql("GETTIME()");
+            modelBuilder.Entity<UserToken>().Property(i => i.CreateAt).HasDefaultValueSql("GETDATE()");
             modelBuilder.Entity<ProductWithCategory>()
            .Property(p => p.CurrentPrice)
            .HasPrecision(18, 2); // Adjust the precision and scale as needed
@@ -42,6 +43,8 @@ namespace DataAccessLayer.Data.Context
         public DbSet<ShoppingCart> shoppingCarts { get;  set; }
         public DbSet<Order> orders { get; set; }
         public DbSet<OrderDetail> orderDetails  { get; set; }
+        public DbSet<Review> reviews { get; set; }
+        public DbSet<UserToken> userTokens { get; set; }
 
     }
 }

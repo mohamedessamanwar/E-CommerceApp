@@ -2,6 +2,8 @@
 using BusinessAccessLayer.Services.AuthService;
 using BusinessAccessLayer.DTOS.AuthDtos;
 using Microsoft.AspNetCore.Mvc;
+using BusinessAccessLayer.DTOS.ProductDtos;
+using BusinessAccessLayer.DTOS.Response;
 
 namespace E_CommerceApp.Controllers
 {
@@ -29,7 +31,7 @@ namespace E_CommerceApp.Controllers
             var result = await _authService.RegisterAsync(model);
 
             if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+                return NewResult(new ResponseHandler().BadRequest<AuthModel>(result.Message));
 
             return Ok(new { massage = result });
         }
@@ -79,15 +81,17 @@ namespace E_CommerceApp.Controllers
                 return BadRequest(result.Message);
             return Ok(new { massage = result });
         }
-        [HttpPost("confirm-Code")]
-        public async Task<IActionResult> ValidationCode(ConfirmCode confirmCode)
-        {
-            var result = await _authService.ValidationCode(confirmCode);
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+        //    [HttpPost("confirm-Code")]
+        //public async Task<IActionResult> ValidationCode(ConfirmCode confirmCode)
+        //{
+        //    var result = await _authService.ValidationCode(confirmCode);
+        //    if (!result.IsAuthenticated)
+        //        return BadRequest(result.Message);
 
-            return Ok(new { massage = result });
-        }
+        //    return Ok(new { massage = result });
+        //}
+
+       
         [HttpPost("ResetPassword")]
         public async Task<ActionResult> ResetPassword(UserResetPasswordDto userResetPasswordDto)
         {

@@ -18,11 +18,11 @@ namespace DataAccessLayer.Repositories.ShoppingCartRepo
         }
         public async Task<IEnumerable<ShoppingCart>> GetShoppingCartsByUserCart(string userId)
         {
-           return  await context.shoppingCarts.Where(s=> s.UserId == userId).ToListAsync();
+           return  await context.shoppingCarts.Where(s=> s.UserId == userId).AsNoTracking().ToListAsync();
         }
         public async Task<IEnumerable<ShoppingCart>> GetShoppingWithProductView(string userId)
         {
-            return await context.shoppingCarts.Include(s => s.Product).ThenInclude(p=> p.Images).Where(s => s.UserId == userId).ToListAsync();
+            return await context.shoppingCarts.Include(s => s.Product).ThenInclude(p=> p.Images).Where(s => s.UserId == userId).AsNoTracking().ToListAsync();
         }
 
         public  ShoppingCart getid(string userId)

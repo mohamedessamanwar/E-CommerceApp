@@ -12,6 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
+using BusinessAccessLayer.Services.Reviewervice;
+using BusinessAccessLayer.Profiles;
+using BusinessAccessLayer.Validations.ReviewValidation;
+using FluentValidation;
+using BusinessAccessLayer.DTOS.ReviewDtos;
 namespace BusinessAccessLayer
 {
     public static class BusinessAccessLayerRegistration
@@ -33,26 +38,11 @@ namespace BusinessAccessLayer
             services.AddScoped<IOrderService, OrderService>();  
             services.AddSingleton<Locke>();
             services.AddScoped<IPayment,StripPayment>();
-           // services.AddAuthentication(options =>
-           // {
-           //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-           //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-           // })
-           //.AddJwtBearer(o =>
-           //{
-           //    o.RequireHttpsMetadata = false;
-           //    o.SaveToken = false;
-           //    o.TokenValidationParameters = new TokenValidationParameters
-           //    {
-           //        ValidateIssuerSigningKey = true,
-           //        ValidateIssuer = true,
-           //        ValidateAudience = true,
-           //        ValidateLifetime = true,
-           //        ValidIssuer = configuration["JWT:Issuer"],
-           //        ValidAudience = configuration["JWT:Audience"],
-           //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
-           //    };
-           //});
+            services.AddScoped<IReviewService,ReviewService>();
+            // Register AutoMapper and all profiles in the assembly
+            services.AddAutoMapper(typeof(ReviewProfile));
+            // Register the CreateReview class for DI
+            services.AddTransient<IValidator<AddReview>, CreateReview>();
             return services;
         }
 

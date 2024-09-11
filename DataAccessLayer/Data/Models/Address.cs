@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Models
 {
-    public class Address
+    public class Address : BaseEntity
     {
         public  int Id { get; set; }
         public string Description { get; set; }
