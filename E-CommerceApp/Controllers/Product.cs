@@ -5,6 +5,8 @@ using BusinessAccessLayer.DTOS.Response;
 using BusinessAccessLayer.Services.ProductService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using BusinessAccessLayer.Services.CacheService;
 
 namespace E_CommerceApp.Controllers
 {
@@ -15,18 +17,33 @@ namespace E_CommerceApp.Controllers
     {
      
         private readonly IProductServices productServices;
-        public ProductController(IProductServices productServices)
+        private readonly ICacheService cacheService;
+        public ProductController(IProductServices productServices, ICacheService cacheService)
         {
             this.productServices = productServices;
+            this.cacheService = cacheService;
         }
         [HttpGet]
         public async Task<IActionResult> ProductsWithCategory()
         {
-          //  productServices.ProductsWithCategory();
-            List<ProductWithCategoryDto> products = await productServices.ProductsWithCategory();
-            if (products.Count == 0)
-                return NewResult(new ResponseHandler().NotFound<List<ProductWithCategoryDto>>("Not Found Product"));
-            return NewResult(new ResponseHandler().Success(products));
+            var cacheKey = $"ProductWithCategoryDto";
+            var cachedData = cacheService.GetCache<List<ProductWithCategoryDto>>(cacheKey);
+            if (cachedData != null)
+            {
+                return NewResult(new ResponseHandler().Success(cachedData));
+            }
+            else
+            {
+                List<ProductWithCategoryDto> products = await productServices.ProductsWithCategory();
+                if (products.Count == 0)
+                    return NewResult(new ResponseHandler().NotFound<List<ProductWithCategoryDto>>("Not Found Product"));
+                cacheService.SetCache(cacheKey, products, TimeSpan.FromMinutes(5));
+
+                return NewResult(new ResponseHandler().Success<List<ProductWithCategoryDto>>(products));
+
+            }
+
+           
         }
         [HttpGet("ProductWithPagination")]
         public async Task<IActionResult> ProductWithPagination([FromQuery] Pagination pagination)

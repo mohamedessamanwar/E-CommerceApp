@@ -17,6 +17,7 @@ using BusinessAccessLayer.Profiles;
 using BusinessAccessLayer.Validations.ReviewValidation;
 using FluentValidation;
 using BusinessAccessLayer.DTOS.ReviewDtos;
+using BusinessAccessLayer.Services.CacheService;
 namespace BusinessAccessLayer
 {
     public static class BusinessAccessLayerRegistration
@@ -43,6 +44,7 @@ namespace BusinessAccessLayer
             services.AddAutoMapper(typeof(ReviewProfile));
             // Register the CreateReview class for DI
             services.AddTransient<IValidator<AddReview>, CreateReview>();
+            services.AddSingleton<ICacheService, CacheService>();
             return services;
         }
 
