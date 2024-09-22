@@ -23,11 +23,7 @@ namespace BusinessAccessLayer.Services.PaymentService
         }
 
         public async Task<PaymentResult> Payment(List<ShoppingCart> shoppingCart, int orderId)
-        {
-            //stripe settings
-            // Set the Stripe API key
-            //StripeConfiguration.ApiKey = "sk_test_51OzGU0J8wl246iKd7y4rBhbVNkLKf60cCrE4cmpBS3kuIdIqL9MBsJIU5ls2wGjbB2ZbF6pOTIKm9xnTUOFjFkn700NQmFMvOv"; // Replace with your actual API key
-            StripeConfiguration.ApiKey = configuration["Stripe:PublishableKey"] ;
+        {           
             var domain = "https://localhost:7138/";
             var options = new SessionCreateOptions
             {
@@ -109,7 +105,7 @@ namespace BusinessAccessLayer.Services.PaymentService
         public async Task<PaymentResult> CancelPayment(string paymentIntentId)
         {
             // Set the Stripe API key
-            StripeConfiguration.ApiKey = "sk_test_51OzGU0J8wl246iKd7y4rBhbVNkLKf60cCrE4cmpBS3kuIdIqL9MBsJIU5ls2wGjbB2ZbF6pOTIKm9xnTUOFjFkn700NQmFMvOv"; // Replace with your actual API key
+            StripeConfiguration.ApiKey = configuration["Stripe:SecretKey"];
 
             var service = new PaymentIntentService();
             try

@@ -26,7 +26,7 @@ namespace E_CommerceApp.Controllers
         [HttpGet]
         public async Task<IActionResult> ProductsWithCategory()
         {
-            var cacheKey = $"ProductWithCategoryDto";
+             var cacheKey = $"ProductWithCategoryDto";
             var cachedData = cacheService.GetCache<List<ProductWithCategoryDto>>(cacheKey);
             if (cachedData != null)
             {
@@ -79,7 +79,7 @@ namespace E_CommerceApp.Controllers
 
         [HttpGet]
         [Route(("GetProduct/{Id}"))]
-        [Authorize(Roles = "User")]
+       // [Authorize(Roles = "User")]
         public async Task<IActionResult> GetProduct(int Id)
         {
             var products = await productServices.ProductWithCategory(Id);

@@ -19,7 +19,7 @@ namespace BusinessAccessLayer.Middleware
         {
             try
             {
-                await _next(context);
+                await _next.Invoke(context);
             }
             catch (System.Exception error)
             {
@@ -58,27 +58,27 @@ namespace BusinessAccessLayer.Middleware
                         responseModel.ErrorsDic = (Dictionary<string,List<string>>) e.Errors;
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
-                    case System.Exception e:
-                        if (e.GetType().ToString() == "ApiException")
+                  
+
+                    default:
+                        if (error.GetType().ToString() == "ApiException")
                         {
-                            responseModel.Message += e.Message;
-                            responseModel.Message += e.InnerException == null ? "" : "\n" + e.InnerException.Message;
+                            responseModel.Message += error.Message;
+                            responseModel.Message += error.InnerException == null ? "" : "\n" + error.InnerException.Message;
                             responseModel.StatusCode = HttpStatusCode.BadRequest;
                             response.StatusCode = (int)HttpStatusCode.BadRequest;
                         }
-                        responseModel.Message = e.Message;
-                        responseModel.Message += e.InnerException == null ? "" : "\n" + e.InnerException.Message;
+                        else
+                        {
+                            responseModel.Message = error.Message;
+                            responseModel.Message += error.InnerException == null ? "" : "\n" + error.InnerException.Message;
 
-                        responseModel.StatusCode = HttpStatusCode.InternalServerError;
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            responseModel.StatusCode = HttpStatusCode.InternalServerError;
+                            response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                        }
                         break;
 
-                    default:
-                        // unhandled error
-                        responseModel.Message = error.Message;
-                        responseModel.StatusCode = HttpStatusCode.InternalServerError;
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        break;
                 }
                 var result = JsonSerializer.Serialize(responseModel);
 

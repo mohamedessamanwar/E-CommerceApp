@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3Zr5FOIXxGIplUdnxjto15dXJNOqwly2esDl4B2QNrU=",
+  "Hash": "uCXFGBeNBsW+/vH7u/5rY3xPgKR+RdyDlVHc6pEXq88=",
   "Source": "E-CommerceApp",
   "BasePath": "_content/E-CommerceApp",
   "Mode": "Default",
@@ -1157,6 +1157,25 @@
       "OriginalItemSpec": "C:\\Users\\AL-FAJR\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\7.0.0\\staticwebassets\\V5\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
+      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\2c737b5f-e0a7-444e-ba8d-2362d4038120.png",
+      "SourceId": "E-CommerceApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "BasePath": "_content/E-CommerceApp",
+      "RelativePath": "Images/Product/2c737b5f-e0a7-444e-ba8d-2362d4038120.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Product\\2c737b5f-e0a7-444e-ba8d-2362d4038120.png"
+    },
+    {
       "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\3de0d1a6-ee11-4017-a813-a10318c0844c.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
@@ -1269,6 +1288,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Product\\c3246d46-b348-48e0-b231-ebc4ced50633.png"
+    },
+    {
+      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\df1ff718-5c79-4672-83c6-d1a158de379a.png",
+      "SourceId": "E-CommerceApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "BasePath": "_content/E-CommerceApp",
+      "RelativePath": "Images/Product/df1ff718-5c79-4672-83c6-d1a158de379a.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Product\\df1ff718-5c79-4672-83c6-d1a158de379a.png"
     },
     {
       "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\e927801f-6f14-4068-b260-ccfe43a88e18.jpg",

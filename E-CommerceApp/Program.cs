@@ -1,21 +1,15 @@
 using AspNetCoreRateLimit;
 using BusinessAccessLayer;
-using BusinessAccessLayer.DTOS;
 using BusinessAccessLayer.Middleware;
-using BusinessAccessLayer.Services.Email;
 using DataAccessLayer;
 using DataAccessLayer.Data.Context;
 using DataAccessLayer.Data.Models;
 using E_CommerceApp.Fillter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Stripe;
-using System.IO;
 using System.Text;
 namespace E_CommerceApp
 {
@@ -24,9 +18,10 @@ namespace E_CommerceApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Configuration.AddJsonFile("Serlog.json");
             // Load configuration from appsettings.json
             var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("Serlog.json")
                 .Build();
 
             // Configure Serilog
@@ -120,7 +115,7 @@ namespace E_CommerceApp
             }
             app.UseCors("AllowAllDomains");
             app.UseMiddleware<ErrorHandlerMiddleware>();
-          
+
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

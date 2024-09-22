@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\2c737b5f-e0a7-444e-ba8d-2362d4038120.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\2c737b5f-e0a7-444e-ba8d-2362d4038120.png"
+    },
+    {
       "Id": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\3de0d1a6-ee11-4017-a813-a10318c0844c.jpg",
       "PackagePath": "staticwebassets\\Images\\Product\\3de0d1a6-ee11-4017-a813-a10318c0844c.jpg"
     },
@@ -23,6 +27,10 @@
     {
       "Id": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\c3246d46-b348-48e0-b231-ebc4ced50633.png",
       "PackagePath": "staticwebassets\\Images\\Product\\c3246d46-b348-48e0-b231-ebc4ced50633.png"
+    },
+    {
+      "Id": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\df1ff718-5c79-4672-83c6-d1a158de379a.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\df1ff718-5c79-4672-83c6-d1a158de379a.png"
     },
     {
       "Id": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\e927801f-6f14-4068-b260-ccfe43a88e18.jpg",

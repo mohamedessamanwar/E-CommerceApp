@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>E_CommerceApp</RootNamespace>
+    <UserSecretsId>1e1dba24-7b95-4de0-bf19-128b3284172a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
