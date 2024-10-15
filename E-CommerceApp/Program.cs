@@ -31,7 +31,7 @@ namespace E_CommerceApp
 
             // Ensure the application uses Serilog for logging
             builder.Host.UseSerilog();
-
+           // builder.Services.AddScoped<FillterAction>(); // Register it for DI
             Log.Information("Application Starting");
 
             // Add services to the container.
@@ -42,6 +42,14 @@ namespace E_CommerceApp
             #region CORS Policy
             builder.Services.AddCors(options =>
             {
+                //options.AddPolicy("AllowAllDomains", policy =>
+                //{
+                //    policy.AllowAnyOrigin()
+                //          .AllowAnyHeader()
+                //          .AllowAnyMethod()
+                //          .WithOrigins("");
+                    
+                //});
                 options.AddPolicy("AllowAllDomains", policy =>
                 {
                     policy.AllowAnyOrigin()
@@ -52,12 +60,7 @@ namespace E_CommerceApp
             #endregion
             builder.Services.DataAccessLayer(builder.Configuration);
             builder.Services.BusinessAccessLayer(builder.Configuration);
-            #region Option . 
-            // builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
-            // builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSetting"));
-            // builder.Services.Configure<StripeSitting>(builder.Configuration.GetSection(nameof(Stripe)));
-            //builder.Services.AddTransient<IMailingService, MailingService>(); 
-            #endregion
+            builder.Services.AddScoped<FillterAction>(); // Register CustomActionFilter
             #region EF
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                .AddEntityFrameworkStores<ECommerceContext>()
@@ -102,9 +105,10 @@ namespace E_CommerceApp
             {
                 //can us DPI in this class .  
                 options.Filters.Add<LogActivity>();
+             //   options.Filters.Add<FillterAction>();  // Register as a global filter
             });
 
-            builder.Services.AddScoped<LogActivity>(); // Register the LogActivity filter
+         //   builder.Services.AddScoped<FillterAction>(); // Register the LogActivity filter
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

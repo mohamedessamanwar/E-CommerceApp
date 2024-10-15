@@ -62,7 +62,7 @@ namespace E_CommerceApp.Controllers
 
             return Ok(result);
         }
-        [HttpGet("confirm-email")]
+        [HttpPatch("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             var result = await _authService.ConfirmEmail(userId, token);

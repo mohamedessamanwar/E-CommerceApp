@@ -74,9 +74,9 @@ namespace BusinessAccessLayer.Services.AuthService
             //HttpUtility.UrlEncode converted all plus signs (+) to empty spaces (" ") this is wrong,
             //UrlEncode replaces "+" to
             //"%2b". If you use + with UrlDecode, it will be replaced into whitespace character
-            string codeHtmlVersion = HttpUtility.UrlEncode(token.Replace("+", "%2b"));
+          //  string codeHtmlVersion = HttpUtility.UrlEncode(token.Replace("+", "%2b"));
 
-            var confirmationLink = $"https://localhost:44367/api/Auth/confirm-email?userId={user.Id}&token={codeHtmlVersion}";
+            var confirmationLink = $"https://localhost:44367/api/Auth/confirm-email?userId={user.Id}&token={token}";
             await _mailingService.SendEmailAsync(model.Email, "Confirm your email",
                 $"Please confirm your email address by clicking <a href='{confirmationLink}'>here</a>.");
             return new AuthModel
@@ -87,17 +87,20 @@ namespace BusinessAccessLayer.Services.AuthService
         }
         public async Task<AuthModel> ConfirmEmail(string userId, string token)
         {
-            var decodedCode = HttpUtility.UrlDecode(token);
+           // var decodedCode = HttpUtility.UrlDecode(token);
             var user = await _userManager.FindByIdAsync(userId);
             if (user is null)
             {
                 return new AuthModel { Message = "Email is not valid" };
             }
-            var result = await _userManager.ConfirmEmailAsync(user, decodedCode);
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
             if (!result.Succeeded)
             {
                 return new AuthModel { Message = "Token Is Not Valid", IsAuthenticated = false };
             }
+            user.EmailConfirmed = true;
+            await _userManager.UpdateAsync(user);
             return new AuthModel { Message = "Login Now", IsAuthenticated = true };
 
         }
@@ -107,7 +110,7 @@ namespace BusinessAccessLayer.Services.AuthService
             var roleClaims = new List<Claim>();
 
             foreach (var role in roles)
-                roleClaims.Add(new Claim("roles", role));
+                roleClaims.Add(new Claim(ClaimTypes.Role, role));
 
             var claims = new[]
             {

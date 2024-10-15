@@ -3,15 +3,47 @@
   "WorkspaceRootPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\e-commerceapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\e-commerceapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\controllers\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\controllers\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\orderservice\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\orderservice\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\orderservice\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\orderservice\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\controllers\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\controllers\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\business access layer\\services\\paymentservice\\strippayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E318C48-E270-40C8-8017-20A187C06CE6}|Business Access Layer\\BusinessAccessLayer.csproj|solutionrelative:business access layer\\services\\paymentservice\\strippayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AL-FAJR\\AppData\\Roaming\\Microsoft\\UserSecrets\\1e1dba24-7b95-4de0-bf19-128b3284172a\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|c:\\users\\al-fajr\\desktop\\e-commerceapp\\e-commerceapp\\fillter\\fillteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C7D657D-B199-49FE-96C3-946DB615F9DC}|E-CommerceApp\\E-CommerceApp.csproj|solutionrelative:e-commerceapp\\fillter\\fillteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,12 +52,85 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 387,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "E-CommerceApp.csproj",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj",
+              "RelativeDocumentMoniker": "E-CommerceApp\\E-CommerceApp.csproj",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj",
+              "RelativeToolTip": "E-CommerceApp\\E-CommerceApp.csproj",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABsAAABWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-14T15:22:12.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\OrderService\\OrderService.cs",
+              "RelativeDocumentMoniker": "Business Access Layer\\Services\\OrderService\\OrderService.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\OrderService\\OrderService.cs",
+              "RelativeToolTip": "Business Access Layer\\Services\\OrderService\\OrderService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADkAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T10:29:26.762Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IOrderService.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\OrderService\\IOrderService.cs",
+              "RelativeDocumentMoniker": "Business Access Layer\\Services\\OrderService\\IOrderService.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\OrderService\\IOrderService.cs",
+              "RelativeToolTip": "Business Access Layer\\Services\\OrderService\\IOrderService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T10:29:25.908Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Order.cs",
+              "RelativeDocumentMoniker": "E-CommerceApp\\Controllers\\Order.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Order.cs",
+              "RelativeToolTip": "E-CommerceApp\\Controllers\\Order.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-13T06:00:32.639Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\AuthService\\AuthService.cs",
+              "RelativeDocumentMoniker": "Business Access Layer\\Services\\AuthService\\AuthService.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\AuthService\\AuthService.cs",
+              "RelativeToolTip": "Business Access Layer\\Services\\AuthService\\AuthService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFkAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T14:37:19.296Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "StripPayment.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
+              "RelativeDocumentMoniker": "Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
+              "RelativeToolTip": "Business Access Layer\\Services\\PaymentService\\StripPayment.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAI8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T08:19:54.971Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "secrets.json",
               "DocumentMoniker": "C:\\Users\\AL-FAJR\\AppData\\Roaming\\Microsoft\\UserSecrets\\1e1dba24-7b95-4de0-bf19-128b3284172a\\secrets.json",
               "RelativeDocumentMoniker": "..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\1e1dba24-7b95-4de0-bf19-128b3284172a\\secrets.json",
@@ -33,34 +138,66 @@
               "RelativeToolTip": "..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\1e1dba24-7b95-4de0-bf19-128b3284172a\\secrets.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-22T21:56:36.476Z",
+              "WhenOpened": "2024-10-10T07:17:15.391Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Program.cs",
+              "RelativeDocumentMoniker": "E-CommerceApp\\Program.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Program.cs",
+              "RelativeToolTip": "E-CommerceApp\\Program.cs",
+              "ViewState": "AQIAAG8AAAAAAAAAAAAAAHkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T15:31:44.272Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "E-CommerceApp\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Properties\\launchSettings.json",
-              "RelativeToolTip": "E-CommerceApp\\Properties\\launchSettings.json",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAUwCQAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-22T21:08:10.306Z",
-              "EditorCaption": ""
+              "Title": "ShoppingCartController.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\ShoppingCartController.cs",
+              "RelativeDocumentMoniker": "E-CommerceApp\\Controllers\\ShoppingCartController.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\ShoppingCartController.cs",
+              "RelativeToolTip": "E-CommerceApp\\Controllers\\ShoppingCartController.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABoAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T14:43:20.486Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\appsettings.json",
-              "RelativeDocumentMoniker": "E-CommerceApp\\appsettings.json",
-              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\appsettings.json",
-              "RelativeToolTip": "E-CommerceApp\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-22T21:07:47.156Z",
-              "EditorCaption": ""
+              "DocumentIndex": 4,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Product.cs",
+              "RelativeDocumentMoniker": "E-CommerceApp\\Controllers\\Product.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Controllers\\Product.cs",
+              "RelativeToolTip": "E-CommerceApp\\Controllers\\Product.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFcAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T15:33:05.382Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FillterAction.cs",
+              "DocumentMoniker": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Fillter\\FillterAction.cs",
+              "RelativeDocumentMoniker": "E-CommerceApp\\Fillter\\FillterAction.cs",
+              "ToolTip": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\Fillter\\FillterAction.cs",
+              "RelativeToolTip": "E-CommerceApp\\Fillter\\FillterAction.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAwBEAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T15:29:13.354Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 13,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }

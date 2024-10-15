@@ -25,6 +25,8 @@ namespace BusinessAccessLayer.Services.PaymentService
         public async Task<PaymentResult> Payment(List<ShoppingCart> shoppingCart, int orderId)
         {           
             var domain = "https://localhost:7138/";
+            // Set the Stripe API key
+            StripeConfiguration.ApiKey = configuration["Stripe:PublishableKey"];
             var options = new SessionCreateOptions
             {
                 LineItems = new List<SessionLineItemOptions>(),
@@ -41,7 +43,7 @@ namespace BusinessAccessLayer.Services.PaymentService
                     PriceData = new SessionLineItemPriceDataOptions
                     {
                         UnitAmount = (long)(item.Product.CurrentPrice * 100),
-                        Currency = "try",
+                        Currency = "egp",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
                             Name = item.Product.Name
@@ -98,7 +100,7 @@ namespace BusinessAccessLayer.Services.PaymentService
             order.PaymentIntentId = paymentIntentId;
             order.SessionId = id;
             order.UpdateAt = DateTime.UtcNow;
-            unitOfWork.orderRepo.Update(order);
+            unitOfWork.orderRepo.Update(order,nameof(order.PaymentIntentId), nameof(order.SessionId),nameof(order.UpdateAt));
             var result = unitOfWork.Complete();
             return result;
         }

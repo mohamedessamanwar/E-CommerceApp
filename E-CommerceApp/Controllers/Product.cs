@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using BusinessAccessLayer.Services.CacheService;
+using E_CommerceApp.Fillter;
 
 namespace E_CommerceApp.Controllers
 {
@@ -15,7 +16,7 @@ namespace E_CommerceApp.Controllers
     
     public class ProductController : BaseController
     {
-     
+   //     private readonly FillterAction _filter;
         private readonly IProductServices productServices;
         private readonly ICacheService cacheService;
         public ProductController(IProductServices productServices, ICacheService cacheService)
@@ -24,6 +25,7 @@ namespace E_CommerceApp.Controllers
             this.cacheService = cacheService;
         }
         [HttpGet]
+        [ServiceFilter(typeof(FillterAction))] // Apply the filter to a specific action
         public async Task<IActionResult> ProductsWithCategory()
         {
              var cacheKey = $"ProductWithCategoryDto";
@@ -78,8 +80,10 @@ namespace E_CommerceApp.Controllers
         }
 
         [HttpGet]
+       
         [Route(("GetProduct/{Id}"))]
-       // [Authorize(Roles = "User")]
+        [ServiceFilter(typeof(FillterAction))] // Apply the filter to a specific action
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> GetProduct(int Id)
         {
             var products = await productServices.ProductWithCategory(Id);

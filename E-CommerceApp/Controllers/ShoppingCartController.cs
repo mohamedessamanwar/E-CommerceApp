@@ -24,7 +24,7 @@ namespace E_CommerceApp.Controllers
             this.productServices = productServices;
         }
          #region createCart
-        [HttpPost]
+        [HttpOptions]
         [Authorize]
         public async Task<IActionResult> CreateShoppingCart(ShoppingCartCreateView shoppingCartCreateView)
         {
