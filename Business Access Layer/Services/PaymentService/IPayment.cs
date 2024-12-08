@@ -17,5 +17,7 @@ namespace BusinessAccessLayer.Services.PaymentService
         Task<int> UpdateStripePaymentId(int orderId, string id, string paymentIntentId);
 
         Task<PaymentResult> CancelPayment(string paymentIntentId);
+        Task<PaymentResult> Payment1(long total, int orderId, CardPaymentRequest cardPaymentRequest);
+        Task<PaymentResult> Payment2(long total, int orderId, string stripeToken); 
     }
 }

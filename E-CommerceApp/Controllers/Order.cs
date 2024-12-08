@@ -9,6 +9,9 @@ using BusinessAccessLayer.Services.ShoppingCartService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace E_CommerceApp.Controllers
 {
@@ -25,30 +28,54 @@ namespace E_CommerceApp.Controllers
             this.mailingService = mailingService;
             this.addressService = addressService;
         }
-        [HttpPost]
-        [Authorize]
-        public async Task<ActionResult> IndexAsync(OrderCreateDto orderCreateDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                                   .Select(e => e.ErrorMessage)
-                                   .ToList();
-                return NewResult(new ResponseHandler().BadRequest<ShoppingCartCreateView>(string.Join(", ", errors)));
-            }
+        #region V1
+        //[HttpPost]
+        //[Authorize]
+        //public async Task<ActionResult> IndexAsync(OrderCreateDto orderCreateDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var errors = ModelState.Values.SelectMany(v => v.Errors)
+        //                           .Select(e => e.ErrorMessage)
+        //                           .ToList();
+        //        return NewResult(new ResponseHandler().BadRequest<ShoppingCartCreateView>(string.Join(", ", errors)));
+        //    }
 
+        //    var address = await addressService.GetAddressByUserId(orderCreateDto.AddressId);
+        //    if (address == null)
+        //    {
+        //        return NewResult(new ResponseHandler().NotFound<string>("Address Not Found"));
+        //    }
+        //    var userIdFromToken = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
+        //    // orderCreateDto.UserId = userIdFromToken;  
+        //    var result = await orderService.AddOrder(orderCreateDto,userIdFromToken);
+        //    if (result.State == false)
+        //    {
+        //        return NewResult(new ResponseHandler().BadRequest<OrderCreateDto>(result.Massage));
+        //    }
+        //    return NewResult(new ResponseHandler().Success<OrderAddState>(result));
+
+        //} 
+        #endregion
+        [HttpPost]
+        [Route("AddOrder")]
+        [Authorize]
+        
+        public async Task<ActionResult> AddOrder(OrderCreateDto orderCreateDto)
+        {
             var address = await addressService.GetAddressByUserId(orderCreateDto.AddressId);
-            if (address == null) {
+            if (address == null)
+            {
                 return NewResult(new ResponseHandler().NotFound<string>("Address Not Found"));
             }
             var userIdFromToken = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
-            orderCreateDto.UserId = userIdFromToken;  
-            var result = await orderService.AddOrder(orderCreateDto);
+            // orderCreateDto.UserId = userIdFromToken;  
+            var result = await orderService.AddOrder(orderCreateDto, userIdFromToken);
             if (result.State == false)
             {
                 return NewResult(new ResponseHandler().BadRequest<OrderCreateDto>(result.Massage));
             }
-            return NewResult(new ResponseHandler().Success<OrderAddState>(result)); 
+            return NewResult(new ResponseHandler().Success<OrderAddState>(result));
 
         }
 
@@ -70,6 +97,20 @@ namespace E_CommerceApp.Controllers
                 return BadRequest("error in payment");
         }
 
+        // AES decryption method
+        private string Decrypt(string encryptedData)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Encoding.UTF8.GetBytes("hjghjghgjhgjhgjhgjhgjhgjhghbjhhbh");
+                aesAlg.IV = new byte[16]; // Initialization Vector (using a zero vector for simplicity)
+
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                byte[] encryptedBytes = Convert.FromBase64String(encryptedData);
+                byte[] decryptedBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
+                return Encoding.UTF8.GetString(decryptedBytes);
+            }
+        }
     }
 }
 

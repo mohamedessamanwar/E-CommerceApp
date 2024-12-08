@@ -1,4 +1,5 @@
 ﻿using Business_Access_Layer.DTOS.ShoppingCart;
+using BusinessAccessLayer.DTOS;
 using BusinessAccessLayer.DTOS.AddressDtos;
 using BusinessAccessLayer.DTOS.Response;
 using BusinessAccessLayer.DTOS.ShoppingCart;
@@ -6,6 +7,7 @@ using BusinessAccessLayer.Services.AddressService;
 using BusinessAccessLayer.Services.ProductService;
 using BusinessAccessLayer.Services.ShoppingCartService;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -18,14 +20,16 @@ namespace E_CommerceApp.Controllers
     {
         private readonly IShoppingCartService shoppingCartService;
         private readonly IProductServices productServices;
-        public ShoppingCartController(IShoppingCartService shoppingCartService, IProductServices productServices)
+        private readonly IDataProtector _protector;
+        public ShoppingCartController(IShoppingCartService shoppingCartService, IProductServices productServices , IDataProtectionProvider provider)
         {
             this.shoppingCartService = shoppingCartService;
             this.productServices = productServices;
+            _protector = provider.CreateProtector("Sensitive.Data.Protection");
         }
          #region createCart
-        [HttpOptions]
-        [Authorize]
+        [HttpPost]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> CreateShoppingCart(ShoppingCartCreateView shoppingCartCreateView)
         {
             if (!ModelState.IsValid)
@@ -55,14 +59,91 @@ namespace E_CommerceApp.Controllers
 
          #region view Cart
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> ViewShoppingCart()
         {
             var userIdFromToken = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
             var Cart = await shoppingCartService.ViewShoppingCart(userIdFromToken);
             if (Cart == null) { return NewResult(new ResponseHandler().NotFound<ShoppingCartView>("Not Found Products!")); }
             return NewResult(new ResponseHandler().Success<ShoppingCartView>(Cart));
-        } 
+        }
         #endregion
+
+        [HttpPost("increase/{id}")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> IncreaseCartCountByOne(string id )
+        {
+            if (!ModelState.IsValid)
+            {
+                // Extract the error messages
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                   .Select(e => e.ErrorMessage)
+                                   .ToList();
+
+                // Return the errors as a bad request response
+                return NewResult(new ResponseHandler().BadRequest<ShoppingCartCreateView>(string.Join(", ", errors)));
+            }
+            var _id = int.Parse(_protector.Unprotect(id));
+            var result = await shoppingCartService.IncreaseCartCountByOne(_id);
+
+            if (result.Status == false)
+            {
+                return NewResult(new ResponseHandler().BadRequest<CreateStatus<ShoppingCartCreateView>>(result.Massage));
+            }
+
+            return NewResult(new ResponseHandler().Success<CreateStatus<ShoppingCartCreateView>>(result));
+        }
+
+        [HttpPost("decrease/{id}")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> DecreaseCartCountByOne(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Extract the error messages
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                   .Select(e => e.ErrorMessage)
+                                   .ToList();
+
+                // Return the errors as a bad request response
+                return NewResult(new ResponseHandler().BadRequest<ShoppingCartCreateView>(string.Join(", ", errors)));
+            }
+            var _id = int.Parse(_protector.Unprotect(id));
+            var result = await shoppingCartService.decresedCartCountByOne(_id);
+
+            if (result.Status == false)
+            {
+                return NewResult(new ResponseHandler().BadRequest<CreateStatus<ShoppingCartCreateView>>(result.Massage));
+            }
+
+            return NewResult(new ResponseHandler().Success<CreateStatus<ShoppingCartCreateView>>(result));
+        }
+
+        [HttpDelete("delete/{id}")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> DeleteCart(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Extract the error messages
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                   .Select(e => e.ErrorMessage)
+                                   .ToList();
+
+                // Return the errors as a bad request response
+                return NewResult(new ResponseHandler().BadRequest<ShoppingCartCreateView>(string.Join(", ", errors)));
+            }
+            var _id = int.Parse(_protector.Unprotect(id));
+            var result = await shoppingCartService.Remove(_id);
+
+            if (result.Status == false)
+            {
+                return NewResult(new ResponseHandler().BadRequest<CreateStatus<ShoppingCartCreateView>>(result.Massage));
+            }
+
+            return NewResult(new ResponseHandler().Success<CreateStatus<ShoppingCartCreateView>>(result));
+        }
+
+
     }
 }

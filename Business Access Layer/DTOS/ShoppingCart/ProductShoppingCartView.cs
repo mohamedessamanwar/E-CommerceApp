@@ -9,7 +9,7 @@ namespace BusinessAccessLayer.DTOS.ShoppingCart
 {
     public class ProductShoppingCartView
     {
-        public int ShoppingCartId { get; set; }
+        public string ShoppingCartId { get; set; }
         public int ProductId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Model { get; set; }

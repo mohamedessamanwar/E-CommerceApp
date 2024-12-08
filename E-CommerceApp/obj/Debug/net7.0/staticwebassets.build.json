@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uCXFGBeNBsW+/vH7u/5rY3xPgKR+RdyDlVHc6pEXq88=",
+  "Hash": "Irvuo5uUXjPfK7vGslxjS3kxtfwgoX3y9vJMHe8/UJ4=",
   "Source": "E-CommerceApp",
   "BasePath": "_content/E-CommerceApp",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "E-CommerceApp\\wwwroot",
       "Source": "E-CommerceApp",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "Pattern": "**"
     }
@@ -1157,10 +1157,10 @@
       "OriginalItemSpec": "C:\\Users\\AL-FAJR\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\7.0.0\\staticwebassets\\V5\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\2c737b5f-e0a7-444e-ba8d-2362d4038120.png",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\2c737b5f-e0a7-444e-ba8d-2362d4038120.png",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/2c737b5f-e0a7-444e-ba8d-2362d4038120.png",
       "AssetKind": "All",
@@ -1176,10 +1176,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\2c737b5f-e0a7-444e-ba8d-2362d4038120.png"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\3de0d1a6-ee11-4017-a813-a10318c0844c.jpg",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\3de0d1a6-ee11-4017-a813-a10318c0844c.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/3de0d1a6-ee11-4017-a813-a10318c0844c.jpg",
       "AssetKind": "All",
@@ -1195,10 +1195,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\3de0d1a6-ee11-4017-a813-a10318c0844c.jpg"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\448e06fe-6e3e-4787-af16-674c1c6de8af.jpg",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\448e06fe-6e3e-4787-af16-674c1c6de8af.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/448e06fe-6e3e-4787-af16-674c1c6de8af.jpg",
       "AssetKind": "All",
@@ -1214,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\448e06fe-6e3e-4787-af16-674c1c6de8af.jpg"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\74d9e0c2-9d96-4c54-80da-15a7923d561e.jpg",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\74d9e0c2-9d96-4c54-80da-15a7923d561e.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/74d9e0c2-9d96-4c54-80da-15a7923d561e.jpg",
       "AssetKind": "All",
@@ -1233,10 +1233,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\74d9e0c2-9d96-4c54-80da-15a7923d561e.jpg"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\93678f06-5aba-41b5-8c4c-8dbe530f0482.png",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\93678f06-5aba-41b5-8c4c-8dbe530f0482.png",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/93678f06-5aba-41b5-8c4c-8dbe530f0482.png",
       "AssetKind": "All",
@@ -1252,10 +1252,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\93678f06-5aba-41b5-8c4c-8dbe530f0482.png"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\9380c624-1d11-4ac1-99ef-1ab8a3a42535.jpg",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\9380c624-1d11-4ac1-99ef-1ab8a3a42535.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/9380c624-1d11-4ac1-99ef-1ab8a3a42535.jpg",
       "AssetKind": "All",
@@ -1271,10 +1271,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\9380c624-1d11-4ac1-99ef-1ab8a3a42535.jpg"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\c3246d46-b348-48e0-b231-ebc4ced50633.png",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\c3246d46-b348-48e0-b231-ebc4ced50633.png",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/c3246d46-b348-48e0-b231-ebc4ced50633.png",
       "AssetKind": "All",
@@ -1290,10 +1290,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\c3246d46-b348-48e0-b231-ebc4ced50633.png"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\df1ff718-5c79-4672-83c6-d1a158de379a.png",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\df1ff718-5c79-4672-83c6-d1a158de379a.png",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/df1ff718-5c79-4672-83c6-d1a158de379a.png",
       "AssetKind": "All",
@@ -1309,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\df1ff718-5c79-4672-83c6-d1a158de379a.png"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\e927801f-6f14-4068-b260-ccfe43a88e18.jpg",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\e927801f-6f14-4068-b260-ccfe43a88e18.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/e927801f-6f14-4068-b260-ccfe43a88e18.jpg",
       "AssetKind": "All",
@@ -1328,10 +1328,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\e927801f-6f14-4068-b260-ccfe43a88e18.jpg"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\ef5c39c5-c839-49d9-9ad4-25810c113571.jpg",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\ef5c39c5-c839-49d9-9ad4-25810c113571.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/ef5c39c5-c839-49d9-9ad4-25810c113571.jpg",
       "AssetKind": "All",
@@ -1347,10 +1347,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\Product\\ef5c39c5-c839-49d9-9ad4-25810c113571.jpg"
     },
     {
-      "Identity": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\efe39b61-75bb-4486-90c4-f275fa5385fa.jpg",
+      "Identity": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\Images\\Product\\efe39b61-75bb-4486-90c4-f275fa5385fa.jpg",
       "SourceId": "E-CommerceApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
+      "ContentRoot": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\wwwroot\\",
       "BasePath": "_content/E-CommerceApp",
       "RelativePath": "Images/Product/efe39b61-75bb-4486-90c4-f275fa5385fa.jpg",
       "AssetKind": "All",

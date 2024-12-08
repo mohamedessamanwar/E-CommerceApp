@@ -8,13 +8,19 @@ using System.Threading.Tasks;
 
 namespace BusinessAccessLayer.DTOS.OrderDtos
 {
+    public class EncryptedOrderCreateDto
+    {
+        public string EncryptedOrderData { get; set; }
+    }
     public class OrderCreateDto
     {
         [Required]
         public int AddressId { get; set; }
         [Required]
-        public string OrderPaymentType { get; set; }
-        [JsonIgnore]
-        public string? UserId { get; set; }
+        public string Token { get; set; }
+        //public string CardNumber { get; set; }
+        //public long ExpMonth { get; set; }
+        //public long ExpYear { get; set; }
+        //public string CVC { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace DataAccessLayer.Data.Configurations
             modelBuilder.HasIndex(p => p.Name);
             modelBuilder.Property(p => p.Status).HasDefaultValue("Available");
             modelBuilder.HasIndex(P=>P.Description);
+            modelBuilder.Property(p => p.RowVersion).IsRowVersion();
             modelBuilder.
             Property(p => p.Name)
            .HasPrecision(18, 2);

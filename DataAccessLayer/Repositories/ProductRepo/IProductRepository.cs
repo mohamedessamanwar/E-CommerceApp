@@ -9,6 +9,7 @@ namespace DataAccessLayer.Repositories.ProductRepo
         Task<IEnumerable<ProductWithCategory>> GetProductWithCategory(int Id);
         Task<IEnumerable<Product>> GetProductsWithPagination(int PageNumber, int PageSize, string[]? OrderBy, string? Search);
          Task<Product?> GetProductWithLock(int Id);
-        Task<IEnumerable<Product>> GetProductsWithFillter(int pageNum = 1, int orderBy = 0, string category = null, int fees = 0);
+        Task<int> GetProductsWithFillterCount(int pageNum, int orderBy, int fees, int CategoryId, string Search);
+        Task<IEnumerable<Product>> GetProductsWithFillter(int pageNum, int orderBy, int fees, int CategoryId, string Search); 
     }
 }

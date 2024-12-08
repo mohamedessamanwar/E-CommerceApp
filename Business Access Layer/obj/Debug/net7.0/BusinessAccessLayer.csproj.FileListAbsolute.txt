@@ -30,3 +30,19 @@ C:\Users\AL-FAJR\Desktop\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\Bu
 C:\Users\AL-FAJR\Desktop\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\refint\BusinessAccessLayer.dll
 C:\Users\AL-FAJR\Desktop\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.pdb
 C:\Users\AL-FAJR\Desktop\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\ref\BusinessAccessLayer.dll
+E:\sw .net\E-CommerceApp\Business Access Layer\bin\Debug\net7.0\BusinessAccessLayer.deps.json
+E:\sw .net\E-CommerceApp\Business Access Layer\bin\Debug\net7.0\BusinessAccessLayer.dll
+E:\sw .net\E-CommerceApp\Business Access Layer\bin\Debug\net7.0\BusinessAccessLayer.pdb
+E:\sw .net\E-CommerceApp\Business Access Layer\bin\Debug\net7.0\DataAccessLayer.dll
+E:\sw .net\E-CommerceApp\Business Access Layer\bin\Debug\net7.0\DataAccessLayer.pdb
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.csproj.AssemblyReference.cache
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.AssemblyInfoInputs.cache
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.AssemblyInfo.cs
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.csproj.CoreCompileInputs.cache
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.sourcelink.json
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\Business.395A7FC9.Up2Date
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.dll
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\refint\BusinessAccessLayer.dll
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\BusinessAccessLayer.pdb
+E:\sw .net\E-CommerceApp\Business Access Layer\obj\Debug\net7.0\ref\BusinessAccessLayer.dll

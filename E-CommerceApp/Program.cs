@@ -7,9 +7,12 @@ using DataAccessLayer.Data.Models;
 using E_CommerceApp.Fillter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using Stripe;
 using System.Text;
 namespace E_CommerceApp
 {
@@ -19,6 +22,7 @@ namespace E_CommerceApp
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Configuration.AddJsonFile("Serlog.json");
+            builder.Services.AddDataProtection();
             // Load configuration from appsettings.json
             var config = new ConfigurationBuilder()
                 .AddJsonFile("Serlog.json")
@@ -30,9 +34,7 @@ namespace E_CommerceApp
                 .CreateLogger();
 
             // Ensure the application uses Serilog for logging
-            builder.Host.UseSerilog();
-           // builder.Services.AddScoped<FillterAction>(); // Register it for DI
-            Log.Information("Application Starting");
+            builder.Host.UseSerilog(); 
 
             // Add services to the container.
             builder.Services.AddControllers();
@@ -85,6 +87,13 @@ namespace E_CommerceApp
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
                  };
              });
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1); // Lockout duration
+                options.Lockout.MaxFailedAccessAttempts = 5; // Max attempts before lockout
+                options.Lockout.AllowedForNewUsers = true; // Lockout new users
+            });
             #endregion
             #region Rate Limit 
             //The above code registers the required services for rate limiting and configures the IP rate limiting options.
@@ -98,8 +107,22 @@ namespace E_CommerceApp
             builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
             // Add the processing strategy
-            builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+           // builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
             #endregion
+            #region Api Version 
+            builder.Services.AddApiVersioning(options =>
+    {
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.DefaultApiVersion = new ApiVersion(1, 0); //default version 1.0
+        options.ReportApiVersions = true; //add version info to response headers
+        options.ApiVersionReader = ApiVersionReader.Combine(
+            new UrlSegmentApiVersionReader(), //reads version from URL segment (e.g., /api/v1/)
+            new QueryStringApiVersionReader("api-version"), //reads version from query string (e.g., /api/products?api-version=1.0)
+            new HeaderApiVersionReader("X-Version"), //reads version from request header (e.g., X-Version: 1.0)
+            new MediaTypeApiVersionReader("X-Version")); //reads version from the media type (e.g., application/json; version=1.0)
+    }); 
+            #endregion
+
             // builder.Services.AddLogging(); // Add logging services
             builder.Services.AddControllersWithViews(options =>
             {
@@ -114,8 +137,8 @@ namespace E_CommerceApp
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                //app.UseSwagger();
+                //app.UseSwaggerUI();
             }
             app.UseCors("AllowAllDomains");
             app.UseMiddleware<ErrorHandlerMiddleware>();

@@ -1,4 +1,6 @@
-﻿namespace DataAccessLayer.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataAccessLayer.Data.Models
 {
     public class Product : BaseEntity
     {
@@ -17,6 +19,8 @@
         public Category Category { get; set; }
         public List<Image> Images { get; set; }
         public List<Review> Reviews { get; set; }
+      //  [ConcurrencyCheck]
+        public byte[] RowVersion { get; set; }
 
     }
 }

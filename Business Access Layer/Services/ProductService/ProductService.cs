@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business_Access_Layer.DTOS.ProductDtos;
 using BusinessAccessLayer.DTOS;
 using BusinessAccessLayer.DTOS.ProductDtos;
 using DataAccessLayer.Data.Models;
@@ -43,13 +44,7 @@ namespace BusinessAccessLayer.Services.ProductService
             var result = _mapper.Map<ViewProduct>(product);
             result.SaveNum = SaveNum;
             return result;
-        }
-        public async Task<List<ViewProduct>> GetProductWithPagination(Pagination pagination)
-        {
-            var products = await unitOfWork.productRepository.GetProductsWithPagination(pagination.PageNumber, pagination.PageSize, pagination.OrderBy, pagination.Search);
-            var productResult = _mapper.Map<List<ViewProduct>>(products);
-            return productResult;
-        }
+        }     
         public async Task<ProductWithCategoryDtoProcudere> ProductWithCategory(int Id)
         {
             var product = (await unitOfWork.productRepository.GetProductWithCategory(Id)).FirstOrDefault();
@@ -71,11 +66,28 @@ namespace BusinessAccessLayer.Services.ProductService
             }
             return images;
         }
-        public async Task<List<ViewProduct>> GetProductWithPaginationV2(int pageNum = 1, int orderBy = 0, string category = null, int fees = 0)
+        public async Task<ProductWithPageination> GetProductsWithFillter(int pageNum, int orderBy, int fees, int CategoryId, string Search)
         {
-            var products = await unitOfWork.productRepository.GetProductsWithFillter(pageNum,orderBy,category,fees);
-            var productResult = _mapper.Map<List<ViewProduct>>(products);
-            return productResult;
+            var products = await unitOfWork.productRepository.GetProductsWithFillter( pageNum,  orderBy,  fees,  CategoryId, Search);
+            var count = await unitOfWork.productRepository.GetProductsWithFillterCount(pageNum, orderBy, fees, CategoryId, Search);
+            return new ProductWithPageination()
+            {
+                Count = count,
+                Products = products.Select(p => new ProductViewPagination()
+                {
+                    Name = p.Name,
+                    Description = p.Description,
+                    Model = p.Model,
+                    ImageUrl = p.Images.Select(i => i.Url).ToList() , 
+                    CategoryName = p.Category.Name,
+                    Id = p.Id , 
+                    Discount = p.Discount ,
+                    CurrentPrice = p.CurrentPrice ,
+                    Price = p.Price ,
+                    count = p.Count ,
+
+                }).ToList()
+            }; 
         }
 
 

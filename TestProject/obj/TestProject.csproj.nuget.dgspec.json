@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\TestProject\\TestProject.csproj": {}
+    "E:\\sw .net\\E-CommerceApp\\TestProject\\TestProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj": {
+    "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj",
+        "projectUniqueName": "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj",
         "projectName": "BusinessAccessLayer",
-        "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj",
+        "projectPath": "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj",
         "packagesPath": "C:\\Users\\AL-FAJR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\obj\\",
+        "outputPath": "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AL-FAJR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -29,8 +29,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj"
+              "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj"
               }
             }
           }
@@ -61,6 +61,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "HtmlSanitizer": {
+              "target": "Package",
+              "version": "[8.1.870, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -107,14 +111,14 @@
         }
       }
     },
-    "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
+    "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectUniqueName": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
         "projectName": "DataAccessLayer",
-        "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectPath": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\AL-FAJR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\obj\\",
+        "outputPath": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AL-FAJR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -196,14 +200,14 @@
         }
       }
     },
-    "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj": {
+    "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj",
+        "projectUniqueName": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj",
         "projectName": "E-CommerceApp",
-        "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj",
+        "projectPath": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj",
         "packagesPath": "C:\\Users\\AL-FAJR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\obj\\",
+        "outputPath": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AL-FAJR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -221,11 +225,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj"
+              "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj": {
+                "projectPath": "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj"
               },
-              "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj"
+              "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj"
               }
             }
           }
@@ -256,6 +260,10 @@
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": {
+              "target": "Package",
+              "version": "[5.1.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -321,14 +329,14 @@
         }
       }
     },
-    "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\TestProject\\TestProject.csproj": {
+    "E:\\sw .net\\E-CommerceApp\\TestProject\\TestProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\TestProject\\TestProject.csproj",
+        "projectUniqueName": "E:\\sw .net\\E-CommerceApp\\TestProject\\TestProject.csproj",
         "projectName": "TestProject",
-        "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\TestProject\\TestProject.csproj",
+        "projectPath": "E:\\sw .net\\E-CommerceApp\\TestProject\\TestProject.csproj",
         "packagesPath": "C:\\Users\\AL-FAJR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\TestProject\\obj\\",
+        "outputPath": "E:\\sw .net\\E-CommerceApp\\TestProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AL-FAJR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -346,14 +354,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj"
+              "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj": {
+                "projectPath": "E:\\sw .net\\E-CommerceApp\\Business Access Layer\\BusinessAccessLayer.csproj"
               },
-              "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj"
+              "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj"
               },
-              "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj": {
-                "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj"
+              "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj": {
+                "projectPath": "E:\\sw .net\\E-CommerceApp\\E-CommerceApp\\E-CommerceApp.csproj"
               }
             }
           }
