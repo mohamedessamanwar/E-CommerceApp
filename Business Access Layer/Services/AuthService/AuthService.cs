@@ -18,29 +18,37 @@ namespace BusinessAccessLayer.Services.AuthService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JWT _jwt;
         private readonly IMailingService _mailingService;
         private readonly IUnitOfWork unitOfWork ;
-        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt = null, IMailingService mailingService = null, IUnitOfWork unitOfWork = null)
+        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt = null, IMailingService mailingService = null, IUnitOfWork unitOfWork = null, SignInManager<ApplicationUser> signInManager = null)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _jwt = jwt.Value;
             _mailingService = mailingService;
             this.unitOfWork = unitOfWork;
+            _signInManager = signInManager;
         }
+        
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
-            ApplicationUser? userCheack = await _userManager.FindByEmailAsync(model.Email);
-            if (userCheack is not null)
+            // Check if the email already exists
+            var userCheck = await _userManager.FindByEmailAsync(model.Email);
+            if (userCheck is not null)
             {
-                return new AuthModel { Message = "Email is aready exixt" };
+                return new AuthModel { Message = "Email already exists" };
             }
-            userCheack = await _userManager.FindByNameAsync(model.Username);
-            if (userCheack is not null)
+
+            // Check if the username already exists
+            userCheck = await _userManager.FindByNameAsync(model.Username);
+            if (userCheck is not null)
             {
-                return new AuthModel { Message = "UserName is aready exixt" };
+                return new AuthModel { Message = "Username already exists" };
             }
+
+            // Create a new ApplicationUser
             var user = new ApplicationUser
             {
                 UserName = model.Username,
@@ -48,62 +56,80 @@ namespace BusinessAccessLayer.Services.AuthService
                 FirstName = model.FirstName,
                 LastName = model.LastName
             };
-            var Result = await _userManager.CreateAsync(user, model.Password);
-            if (!Result.Succeeded)
+
+            // Attempt to create the user
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
             {
-                string errors = string.Empty;
-                // StringBuilder errors = new StringBuilder();
-                foreach (var error in Result.Errors)
-                {
-                    // error += e.Description;
-                    errors += $"{error.Description},";
-                    //errors.Append($"{error.Description},");
-                    return new AuthModel { Message = errors };
-                }
+                // Collect all error messages
+                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                return new AuthModel { Message = errors };
             }
-            // Add to role 
+
+            // Assign the user to the "User" role
             await _userManager.AddToRoleAsync(user, "User");
+
+            // Add claims to the user
             var role = await AddClaimsAsync(user);
             if (role is not null)
             {
                 return new AuthModel { Message = role };
             }
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            // code value have to be Encoded before sending the call.
-            // string codeHtmlVersion = HttpUtility.UrlEncode(token);
-            //HttpUtility.UrlEncode converted all plus signs (+) to empty spaces (" ") this is wrong,
-            //UrlEncode replaces "+" to
-            //"%2b". If you use + with UrlDecode, it will be replaced into whitespace character
-          //  string codeHtmlVersion = HttpUtility.UrlEncode(token.Replace("+", "%2b"));
+            await unitOfWork.userToken.AddAsync(new UserToken()
+            {
+                Token = token,
+                UserEmail = user.Email,
+                ApplicationUserId = user.Id,
 
-            var confirmationLink = $"https://localhost:44367/api/Auth/confirm-email?userId={user.Id}&token={token}";
+            }); 
+            unitOfWork.Complete();
+            string decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(token));
+            var confirmationLink = $"https://localhost:7138/api/Auth/confirm-email?userId={user.Id}&token={decodedToken}";
+
+            // Send confirmation email
             await _mailingService.SendEmailAsync(model.Email, "Confirm your email",
                 $"Please confirm your email address by clicking <a href='{confirmationLink}'>here</a>.");
+
             return new AuthModel
             {
-                Message = confirmationLink,
+                Message = "Registration successful. Please check your email to confirm your account.",
                 IsAuthenticated = true
             };
         }
+
         public async Task<AuthModel> ConfirmEmail(string userId, string token)
         {
-           // var decodedCode = HttpUtility.UrlDecode(token);
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user is null)
-            {
-                return new AuthModel { Message = "Email is not valid" };
-            }
-            var result = await _userManager.ConfirmEmailAsync(user, token);
+            // Decode the token received from the URL
+         //   string decodedToken = HttpUtility.UrlDecode(token);
 
+            // Retrieve the token from the database
+            var userToken = await unitOfWork.userToken.GetUserToken(token);
+            if (userToken == null || userToken.ApplicationUserId != userId)
+            {
+                return new AuthModel { Message = "Token is not valid", IsAuthenticated = false };
+            }
+
+            // Find the user and confirm their email
+            var user = await _userManager.FindByIdAsync(userToken.ApplicationUserId);
+            if (user == null)
+            {
+                return new AuthModel { Message = "User not found", IsAuthenticated = false };
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, userToken.Token);
             if (!result.Succeeded)
             {
-                return new AuthModel { Message = "Token Is Not Valid", IsAuthenticated = false };
+                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                return new AuthModel { Message = $"Token is not valid: {errors}", IsAuthenticated = false };
             }
-            user.EmailConfirmed = true;
-            await _userManager.UpdateAsync(user);
-            return new AuthModel { Message = "Login Now", IsAuthenticated = true };
 
+            user.EmailConfirmed = true;
+            unitOfWork.Complete();
+
+            return new AuthModel { Message = "Email confirmed successfully. You can now log in.", IsAuthenticated = true };
         }
+
         private async Task<string> AddClaimsAsync(ApplicationUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
@@ -168,18 +194,51 @@ namespace BusinessAccessLayer.Services.AuthService
             var authModel = new AuthModel();
 
             var user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
+            if (user is null )
             {
                 authModel.Message = "Email or Password is incorrect!";
                 return authModel;
             }
-            // Get Code .
+            if (user.LockoutEnd>DateTimeOffset.UtcNow)
+            {
+                authModel.Message = "you are locked!";
+                return authModel;
+
+            }
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password,false, lockoutOnFailure: true);
+            if (!result.Succeeded)
+            {
+                authModel.Message = "Email or Password is incorrect!";
+                return authModel;
+            }
+            if (user.EmailConfirmed == false)
+            {
+                // Generate a new email confirmation token
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                // Store the original token in the database (not URL-encoded)
+                await unitOfWork.userToken.AddAsync(new UserToken()
+                {
+                    Token = token,
+                    UserEmail = user.Email,
+                    ApplicationUserId = user.Id,
+                });
+                unitOfWork.Complete();
+
+                // URL-encode the token for the confirmation link
+                var encodedToken = HttpUtility.UrlEncode(token);
+                var confirmationLink = $"https://localhost:7138/api/Auth/confirm-email?userId={user.Id}&token={encodedToken}";
+
+                // Send the confirmation email
+                await _mailingService.SendEmailAsync(model.Email, "Confirm your email",
+                    $"Please confirm your email address by clicking <a href='{confirmationLink}'>here</a>.");
+
+                authModel.Message = "Email is not confirmed. We have sent a confirmation email to your inbox.";
+                return authModel;
+            }
             string Code = GenerateKey(6);
-            // Save Code .
             user.Code = Code;
             await _userManager.UpdateAsync(user);
-            //send email .
             await _mailingService.SendEmailAsync(model.Email, "Your Code", Code);
             authModel.IsAuthenticated = true;
             authModel.Email = model.Email;

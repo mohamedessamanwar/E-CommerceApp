@@ -38,7 +38,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 30, 1, 7, 27, 399, DateTimeKind.Local).AddTicks(1137));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 20, 55, 10, 576, DateTimeKind.Local).AddTicks(2262));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -404,6 +404,12 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -1088,7 +1094,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("CreateAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 30, 1, 7, 27, 401, DateTimeKind.Local).AddTicks(3305));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 20, 55, 10, 578, DateTimeKind.Local).AddTicks(9613));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -1096,7 +1102,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 30, 1, 7, 27, 401, DateTimeKind.Local).AddTicks(3807));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 20, 55, 10, 579, DateTimeKind.Local).AddTicks(183));
 
                     b.Property<string>("UserId")
                         .IsRequired()

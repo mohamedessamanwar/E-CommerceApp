@@ -13,6 +13,14 @@ namespace BusinessAccessLayer.Services.ShoppingCartService
         Task<CreateStatus<ShoppingCartCreateView>> CreateShoppingCart(ShoppingCartCreateView shoppingCartCreateView);
         Task<ShoppingCartView?> ViewShoppingCart(string userId);
 
-        Task<int> ClearCartAsync(string userId); 
+        Task<int> ClearCartAsync(string userId);
+
+
+        Task<CreateStatus<ShoppingCartCreateView>> IncreaseCartCountByOne(int id);
+        Task<CreateStatus<ShoppingCartCreateView>> decresedCartCountByOne(int id);
+        Task<CreateStatus<ShoppingCartCreateView>> Remove(int id); 
+
+
+
     }
 }

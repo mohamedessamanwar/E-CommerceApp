@@ -9,7 +9,7 @@ namespace BusinessAccessLayer.Services.OrderService
 {
     public interface IOrderService 
     {
-        Task<OrderAddState> AddOrder(OrderCreateDto orderCreateDto);
+        Task<OrderAddState> AddOrder(OrderCreateDto orderCreateDto, string userId); 
         Task<OrderPaymentStatus> OrderConfirmation(int orderId);
     }
 }

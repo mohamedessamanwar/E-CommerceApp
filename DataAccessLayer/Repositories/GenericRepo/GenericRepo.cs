@@ -22,7 +22,7 @@ namespace DataAccessLayer.Repositories.GenericRepo
         //}
         public async Task<T?> GetByIdAsync(int id)
         {
-            return await context.Set<T>().AsNoTracking().FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+            return await context.Set<T>().FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
         public async Task AddAsync(T entity)
         {

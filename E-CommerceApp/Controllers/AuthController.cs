@@ -4,6 +4,7 @@ using BusinessAccessLayer.DTOS.AuthDtos;
 using Microsoft.AspNetCore.Mvc;
 using BusinessAccessLayer.DTOS.ProductDtos;
 using BusinessAccessLayer.DTOS.Response;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace E_CommerceApp.Controllers
 {
@@ -44,7 +45,7 @@ namespace E_CommerceApp.Controllers
             var result = await _authService.GetTokenAsync(model);
 
             if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+                return BadRequest(new { Error = result.Message });
 
             return Ok(result);
         }
@@ -58,19 +59,19 @@ namespace E_CommerceApp.Controllers
             var result = await _authService.ValidationCode(model);
 
             if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+                return BadRequest(new { Error = result.Message });
 
             return Ok(result);
         }
-        [HttpPatch("confirm-email")]
-        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(string? userId, string token)
         {
             var result = await _authService.ConfirmEmail(userId, token);
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
 
-            return Ok(new { massage = result });
+            return Redirect("http://localhost:4200/login");
         }
 
         [HttpPost("Send-Code")]

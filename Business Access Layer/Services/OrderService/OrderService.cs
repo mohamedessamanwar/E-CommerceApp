@@ -7,7 +7,10 @@ using DataAccessLayer.Data.Context;
 using DataAccessLayer.Data.Models;
 using DataAccessLayer.UnitOfWorkRepo;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Stripe;
 using Stripe.Checkout;
 using Stripe.Climate;
@@ -34,124 +37,414 @@ namespace BusinessAccessLayer.Services.OrderService
             this.mapper = mapper;
         }
         #region add order
-        public async Task<OrderAddState> AddOrder(OrderCreateDto orderCreateDto)
-        {
-            try
-            {
-                using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
-                {
-                    //add order record . 
-                    var order = new DataAccessLayer.Data.Models.Order()
-                    {
-                        CreateAt = DateTime.Now,
-                        OrderPaymentStatus = Helper.Helper.PaymentPending,
-                        OrderStatus = Helper.Helper.OrderProcessing,
-                        AddressId = orderCreateDto.AddressId,
-                        UserId = orderCreateDto.UserId,
-                        OrderPaymentType = orderCreateDto.OrderPaymentType,
-                        OrderTotal = (double)(await unitOfWork.shoppiingCartRepo.GetShoppingWithProductView(orderCreateDto.UserId)).Sum(o => o.Count * o.Product.CurrentPrice)
-                    };
-                    await unitOfWork.orderRepo.AddAsync(order);
-                    int orderresult = unitOfWork.Complete();
-                    if (orderresult == 0)
-                    {
-                        transaction.Rollback();
-                        return new OrderAddState
-                        {
-                            State = false,
-                            Massage = "Somthing Wrong"
-                        };
-                    }
-                    var carts = await unitOfWork.shoppiingCartRepo.GetShoppingWithProductView(orderCreateDto.UserId);
-                    if (carts == null)
-                    {
-                        transaction.Rollback();
-                        return new OrderAddState
-                        {
-                            State = false,
-                            Massage = "Cart is empty"
-                        };
-                    }
-                    // check item count  add order Items . 
-                    foreach (var cart in carts)
-                    {
-                        // lock ...
-                        var product = await unitOfWork.productRepository.GetProductWithLock(cart.ProductId);
-                        if ( product == null|| product.Count + cart.Count < cart.Count )
-                        {
-                            transaction.Rollback();
-                            return new OrderAddState
-                            {
-                                State = false,
-                                Massage = $"count of product {product?.Name} is not enough"
-                            };
-                        }
-                        var orderItem = new OrderDetail()
-                        {
-                            Price = (double)product.CurrentPrice,
-                            Count = cart.Count,
-                            OrderId = order.Id,
-                            ProductId = product.Id
-                        };
-                        await unitOfWork.orderItemRepo.AddAsync(orderItem);
-                        int orderItemResult = unitOfWork.Complete();
-                        if (orderItemResult == 0)
-                        {
-                            transaction.Rollback();
-                            return new OrderAddState
-                            {
-                                State = false,
-                                Massage = "Somthing Wrong"
-                            };
-                        }
-                    }
-                    // end of cart ... 
-                    // call payment ...
+        //public async Task<OrderAddState> AddOrder(OrderCreateDto orderCreateDto)
+        //{
+        //    try
+        //    {
+        //        using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
+        //        {
+        //            //add order record . 
+        //            var order = new DataAccessLayer.Data.Models.Order()
+        //            {
+        //                CreateAt = DateTime.Now,
+        //                OrderPaymentStatus = Helper.Helper.PaymentPending,
+        //                OrderStatus = Helper.Helper.OrderProcessing,
+        //                AddressId = orderCreateDto.AddressId,
+        //                UserId = orderCreateDto.UserId,
+        //                OrderPaymentType = orderCreateDto.OrderPaymentType,
+        //                OrderTotal = (double)(await unitOfWork.shoppiingCartRepo.GetShoppingWithProductView(orderCreateDto.UserId)).Sum(o => o.Count * o.Product.CurrentPrice)
+        //            };
+        //            await unitOfWork.orderRepo.AddAsync(order);
+        //            int orderresult = unitOfWork.Complete();
+        //            if (orderresult == 0)
+        //            {
+        //                transaction.Rollback();
+        //                return new OrderAddState
+        //                {
+        //                    State = false,
+        //                    Massage = "Somthing Wrong"
+        //                };
+        //            }
+        //            var carts = await unitOfWork.shoppiingCartRepo.GetShoppingWithProductView(orderCreateDto.UserId);
+        //            if (carts == null)
+        //            {
+        //                transaction.Rollback();
+        //                return new OrderAddState
+        //                {
+        //                    State = false,
+        //                    Massage = "Cart is empty"
+        //                };
+        //            }
+        //            // check item count  add order Items . 
+        //            foreach (var cart in carts)
+        //            {
+        //                // lock ...
+        //                var product = await unitOfWork.productRepository.GetProductWithLock(cart.ProductId);
+        //                if (product == null || product.Count + cart.Count < cart.Count)
+        //                {
+        //                    transaction.Rollback();
+        //                    return new OrderAddState
+        //                    {
+        //                        State = false,
+        //                        Massage = $"count of product {product?.Name} is not enough"
+        //                    };
+        //                }
+        //                var orderItem = new OrderDetail()
+        //                {
+        //                    Price = (double)product.CurrentPrice,
+        //                    Count = cart.Count,
+        //                    OrderId = order.Id,
+        //                    ProductId = product.Id
+        //                };
+        //                await unitOfWork.orderItemRepo.AddAsync(orderItem);
+        //                int orderItemResult = unitOfWork.Complete();
+        //                if (orderItemResult == 0)
+        //                {
+        //                    transaction.Rollback();
+        //                    return new OrderAddState
+        //                    {
+        //                        State = false,
+        //                        Massage = "Somthing Wrong"
+        //                    };
+        //                }
+        //            }
+        //            // end of cart ... 
+        //            // call payment ...
 
-                    var payment = await paymentMethod.Payment((List<ShoppingCart>)carts, order.Id);
-                    if (payment.status == false)
-                    {
-                        transaction.Rollback();
-                        return new OrderAddState
-                        {
-                            State = false,
-                            Massage = payment.Massage
-                        };
-                    }
-                    transaction.Commit();
-                    return new OrderAddState
-                    {
-                        Type = "Credit",
-                        State = true,
-                        Massage = payment.Massage,
-                        SessionUrl = payment.session
-                    };
-                }
-            } // try 
-            catch (System.Exception ex)
-            {
-                return new OrderAddState
-                {
-                    State = false,
-                    Massage = ex.Message
-                };
-            }
+        //            var payment = await paymentMethod.Payment((List<ShoppingCart>)carts, order.Id);
+        //            if (payment.status == false)
+        //            {
+        //                transaction.Rollback();
+        //                return new OrderAddState
+        //                {
+        //                    State = false,
+        //                    Massage = payment.Massage
+        //                };
+        //            }
+        //            transaction.Commit();
+        //            return new OrderAddState
+        //            {
+        //                Type = "Credit",
+        //                State = true,
+        //                Massage = payment.Massage,
+        //                SessionUrl = payment.session
+        //            };
+        //        }
+        //    } // try 
+        //    catch (System.Exception ex)
+        //    {
+        //        return new OrderAddState
+        //        {
+        //            State = false,
+        //            Massage = ex.Message
+        //        };
+        //    }
 
-        } 
+        //  } 
         #endregion
-        public async Task<OrderPaymentStatus> OrderConfirmation(int orderId)
+
+             #region v Lock
+        //public async Task<OrderAddState> AddOrder(OrderCreateDto orderCreateDto, string userId)
+        //{
+        //    int maxRetries = 3; // Number of retry attempts
+        //    int retryCount = 0;
+
+        //    //while (retryCount < maxRetries)
+        //    //{
+        //    try
+        //    {
+        //        using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
+        //        {
+        //            var carts = await unitOfWork.shoppiingCartRepo.GetShoppingWithProductView(userId);
+        //            if (carts.Count() == 0)
+        //            {
+        //                transaction.Rollback();
+        //                return new OrderAddState
+        //                {
+        //                    State = false,
+        //                    Massage = "Cart is empty"
+        //                };
+        //            }
+
+        //            var items = new List<OrderDetail>();
+        //            foreach (var cart in carts)
+        //            {
+        //                // Lock the product with UPDLOCK to prevent concurrent updates
+        //                var product = await unitOfWork.productRepository.GetProductWithLock(cart.ProductId);
+        //                Console.WriteLine($"{product.Count}");
+        //                if (product == null || product.Count < cart.Count)
+        //                {
+        //                    transaction.Rollback();
+        //                    return new OrderAddState
+        //                    {
+        //                        State = false,
+        //                        Massage = $"Count of product {product?.Name} is not enough"
+        //                    };
+        //                }
+        //                var orderItem = new OrderDetail()
+        //                {
+        //                    Price = (double)product.CurrentPrice,
+        //                    Count = cart.Count,
+        //                    ProductId = product.Id
+        //                };
+
+        //                product.Count -= cart.Count;
+        //                unitOfWork.productRepository.Update(product, nameof(product.Count));
+        //                items.Add(orderItem);
+
+        //                int productResultUpdate = unitOfWork.Complete();
+        //                await Task.Delay(10000);
+        //                if (productResultUpdate == 0)
+        //                {
+        //                    transaction.Rollback();
+        //                    return new OrderAddState
+        //                    {
+        //                        State = false,
+        //                        Massage = "Something went wrong"
+        //                    };
+        //                }
+        //            }
+
+        //            var order = new DataAccessLayer.Data.Models.Order()
+        //            {
+        //                CreateAt = DateTime.Now,
+        //                OrderPaymentStatus = Helper.Helper.PaymentPending,
+        //                OrderStatus = Helper.Helper.OrderProcessing,
+        //                AddressId = orderCreateDto.AddressId,
+        //                UserId = userId,
+        //                OrderPaymentType = "Card",
+        //                OrderTotal = (double)carts.Sum(o => o.Count * o.Product.CurrentPrice),
+        //                orderDetails = items
+        //            };
+        //            await unitOfWork.orderRepo.AddAsync(order);
+        //            int orderResult = unitOfWork.Complete();
+
+        //            if (orderResult == 0)
+        //            {
+        //                transaction.Rollback();
+        //                return new OrderAddState
+        //                {
+        //                    State = false,
+        //                    Massage = "Something went wrong"
+        //                };
+        //            }
+
+        //            var total = carts.Sum(o => o.Count * o.Product.CurrentPrice);
+        //            var payment = await paymentMethod.Payment2((long)total, order.Id, orderCreateDto.Token);
+        //            if (payment.status == false)
+        //            {
+        //                transaction.Rollback();
+        //                return new OrderAddState
+        //                {
+        //                    State = false,
+        //                    Massage = payment.Massage
+        //                };
+        //            }
+
+        //            transaction.Commit();
+        //            return new OrderAddState
+        //            {
+        //                Type = "Credit",
+        //                State = true,
+        //                Massage = payment.Massage,
+        //                SessionUrl = payment.session
+        //            };
+        //        }
+        //    }
+        //    catch (SqlException ex)// when (ex.Number == 1205) // SQL Deadlock error
+        //    {
+
+        //        retryCount++;
+        //        if (retryCount >= maxRetries)
+        //        {
+        //            return new OrderAddState
+        //            {
+        //                State = false,
+        //                Massage = "Transaction failed due to deadlock after multiple attempts."
+        //            };
+        //        }
+        //        // Log the deadlock occurrence and retry the transaction
+        //        // Optionally, introduce a small delay before retrying (e.g., Task.Delay)
+        //        await Task.Delay(1000); // Wait 1 second before retrying
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        // Handle other types of exceptions
+        //        return new OrderAddState
+        //        {
+        //            State = false,
+        //            Massage = ex.Message
+        //        };
+        //    }
+
+
+        //    // This should never be reached, but in case of a persistent issue:
+        //    return new OrderAddState
+        //    {
+        //        State = false,
+        //        Massage = "Something went wrong. Please try again later."
+        //    };
+        //}
+        #endregion
+            public async Task<OrderAddState> AddOrder(OrderCreateDto orderCreateDto, string userId)
+        {
+            int maxRetries = 3; // Number of retry attempts
+            int retryCount = 0;
+
+            while (retryCount < maxRetries)
+            {
+
+                using (var transaction = await unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        var carts = await unitOfWork.shoppiingCartRepo.GetShoppingWithProductView(userId);
+                        if (carts.Count() == 0)
+                        {
+                            transaction.Rollback();
+                            return new OrderAddState
+                            {
+                                State = false,
+                                Massage = "Cart is empty"
+                            };
+                        }
+                        var items = new List<OrderDetail>();
+                        foreach (var cart in carts)
+                        {
+                            var product = await unitOfWork.productRepository.GetByIdAsync(cart.ProductId);
+                            Console.WriteLine($"{product.Count}");
+                            if (product == null || product.Count < cart.Count)
+                            {
+                                transaction.Rollback();
+                                return new OrderAddState
+                                {
+                                    State = false,
+                                    Massage = $"Count of product {product?.Name} is not enough"
+                                };
+                            }
+                            var orderItem = new OrderDetail()
+                            {
+                                Price = (double)product.CurrentPrice,
+                                Count = cart.Count,
+                                ProductId = product.Id
+                            };
+                            product.Count -= cart.Count;
+                            unitOfWork.productRepository.Update(product, nameof(product.Count));
+                            items.Add(orderItem);
+                            int productResultUpdate = unitOfWork.Complete();
+                          //  await Task.Delay(1000);
+                            if (productResultUpdate == 0)
+                            {
+                                transaction.Rollback();
+
+                                return new OrderAddState
+                                {
+                                    State = false,
+                                    Massage = "Something went wrong"
+                                };
+                            }
+                        }
+                        var order = new DataAccessLayer.Data.Models.Order()
+                        {
+                            CreateAt = DateTime.Now,
+                            OrderPaymentStatus = Helper.Helper.PaymentPending,
+                            OrderStatus = Helper.Helper.OrderProcessing,
+                            AddressId = orderCreateDto.AddressId,
+                            UserId = userId,
+                            OrderPaymentType = "Card",
+                            OrderTotal = (double)carts.Sum(o => o.Count * o.Product.CurrentPrice),
+                            orderDetails = items
+                        };
+                        await unitOfWork.orderRepo.AddAsync(order);
+                        int orderResult = unitOfWork.Complete();
+
+                        if (orderResult == 0)
+                        {
+                            transaction.Rollback();
+                            return new OrderAddState
+                            {
+                                State = false,
+                                Massage = "Something went wrong"
+                            };
+                        }
+
+                        var total = carts.Sum(o => o.Count * o.Product.CurrentPrice);
+                        var payment = await paymentMethod.Payment2((long)total, order.Id, orderCreateDto.Token);
+                        if (payment.status == false)
+                        {
+                            unitOfWork.Rollback();
+                            return new OrderAddState
+                            {
+                                State = false,
+                                Massage = payment.Massage
+                            };
+                        }
+
+                        transaction.Commit();
+                        return new OrderAddState
+                        {
+                            Type = "Credit",
+                            State = true,
+                            Massage = payment.Massage,
+                            SessionUrl = payment.session
+                        };
+
+                    }
+                    //catch (SqlException ex) when (ex.Number == 1205) // Deadlock
+                    //{
+                    //    //retryCount++;
+                    //    //if (retryCount >= maxRetries)
+                    //    //{
+                    //        transaction.Rollback();
+                    //        return new OrderAddState { State = false, Massage = "Deadlock occurred. Retry failed." };
+                    //  //  }
+                    //}
+                    catch (DbUpdateConcurrencyException ex)
+                    {
+                        transaction.Rollback();
+                        await ex.Entries.Single().ReloadAsync();
+                        retryCount++;
+                        if (retryCount >= maxRetries)
+                        {
+                            return new OrderAddState
+                            {
+                                State = false,
+                                Massage = "Transaction failed "
+                            };
+                        }
+                    }
+
+                    catch (System.Exception ex) // time out 
+                    {
+                        transaction.Rollback();
+                        retryCount++;
+                        if (retryCount >= maxRetries)
+                        {
+                            return new OrderAddState
+                            {
+                                State = false,
+                                Massage = ex.Message
+                            };
+                        }
+                    }
+
+
+                }
+            }
+            return new OrderAddState
+            {
+
+                State = false,
+                Massage = "Something went wrong. Please try again later."
+            };
+        }
+
+             public async Task<OrderPaymentStatus> OrderConfirmation(int orderId)
         {
             var order = await unitOfWork.orderRepo.GetByIdAsync(orderId);
-            if (order == null)
-            {
-                return new OrderPaymentStatus(){
-                    Status = false,
-                    StatusMessage = "Order Not Found"
-
-                };
-            }
             var paymentStatus = paymentMethod.PaymentStatus(order.SessionId);
             var session = paymentMethod.PaymentSession(order.SessionId);
+
             await paymentMethod.UpdateStripePaymentId(orderId, session.Id, session.PaymentIntentId);
             if (paymentStatus == "paid")
             {               
@@ -165,13 +458,12 @@ namespace BusinessAccessLayer.Services.OrderService
                 }; ;
             }
             await UpdateOrderStatus(order.Id, "Canceled Payment");
-           //  await shoppingCartService.ClearCartAsync(order.UserId);
             await paymentMethod.CancelPayment(session.PaymentIntentId);
             unitOfWork.orderRepo.Delete(order);
             unitOfWork.Complete();
             return new OrderPaymentStatus() { Status = false, StatusMessage = "Payment Is Not Complelte" };
         }
-        private async Task<int> UpdateOrderStatus(int id, string paymentPaid)
+             private async Task<int> UpdateOrderStatus(int id, string paymentPaid)
         {
             var order = await unitOfWork.orderRepo.GetByIdAsync(id);          
             order.OrderPaymentStatus = paymentPaid;
@@ -180,7 +472,7 @@ namespace BusinessAccessLayer.Services.OrderService
             return  unitOfWork.Complete();
         }
 
-        #region v1 
+            #region v1 
         //private async Task<PaymentResult>Payment(List<ShoppingCart> shoppingCart , int orderId)
         //{
         //    //stripe settings

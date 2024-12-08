@@ -19,11 +19,6 @@ namespace DataAccessLayer.Repositories.ProductRepo
             _context = context;
             _dapperContext = dapperContext;
         }
-
-        //public async Task<IEnumerable<Product>> GetProductsWithCategories()
-        //{
-        //    return await _context.Products.AsNoTracking().Include(p => p.Category).Include(p=> p.Images).ToListAsync();
-        //}
         public async Task<IEnumerable<Product>> GetProductsWithCategories()
         {
             using (var connection = _dapperContext.CreateConnection())
@@ -32,7 +27,7 @@ namespace DataAccessLayer.Repositories.ProductRepo
                 return await connection.QueryAsync<Product>(sql);
             }
         }
-        public async Task<IEnumerable<Product>> GetProductsWithPagination(int PageNumber, int PageSize, string[]? OrderBy, string? Search)
+        public async Task<IEnumerable<Product>> GetProductsWithPagination(int PageNumber, int PageSize ,string[]? OrderBy, string? Search)
         {
             IQueryable<Product> queryable = _context.Products.AsNoTracking();
 
@@ -41,7 +36,7 @@ namespace DataAccessLayer.Repositories.ProductRepo
             {
                 queryable = queryable.Where(p => p.Name.Contains(Search) || p.Description.Contains(Search));
             }
-
+            
             // Sorting based on OrderBy parameter
             if (OrderBy != null && OrderBy.Any())
             {
@@ -80,17 +75,22 @@ namespace DataAccessLayer.Repositories.ProductRepo
         public async Task<Product?> GetProductWithLock(int Id)
         {
             return await _context.Products
-               .FromSqlRaw("SELECT * FROM Products WITH (UPDLOCK, ROWLOCK) WHERE Id = {0}", Id).AsNoTracking()
+               .FromSqlRaw("SELECT * FROM Products WITH (UPDLOCK ,ROWLOCK) WHERE Id = {0}", Id).AsNoTracking()
                 .FirstOrDefaultAsync();
         }
-        public async Task<IEnumerable<Product>> GetProductsWithFillter(int pageNum = 1,int orderBy=0 , string category=null , int fees = 0)
+        public async Task<IEnumerable<Product>> GetProductsWithFillter(int pageNum ,int orderBy , int fees  , int CategoryId,  string Search)
         {
             var products = context.Products.Include(p=> p.Category).Include(p=> p.Images)
                 .Include(p=> p.Reviews).AsNoTracking();
 
-            if(!category.IsNullOrEmpty())
+            // Filtering based on search keyword
+            if (!string.IsNullOrEmpty(Search))
             {
-               products =  products.Where(p => p.Category.Name == category);
+                products = products.Where(p => p.Name.Contains(Search) || p.Description.Contains(Search));
+            }
+            if (CategoryId != 0)
+            {
+                products = products.Where(p => p.CategoryID == CategoryId);
             }
             if (fees > 0)
             {
@@ -132,6 +132,62 @@ namespace DataAccessLayer.Repositories.ProductRepo
             }
              products =products.Skip((pageNum - 1) * 10).Take(10);
             return await products.ToListAsync();
+        }
+
+        public async Task<int> GetProductsWithFillterCount(int pageNum, int orderBy, int fees, int CategoryId, string Search)
+        {
+            var products = context.Products.Include(p => p.Category).Include(p => p.Images)
+                .Include(p => p.Reviews).AsNoTracking();
+
+            // Filtering based on search keyword
+            if (!string.IsNullOrEmpty(Search))
+            {
+                products = products.Where(p => p.Name.Contains(Search) || p.Description.Contains(Search));
+            }
+            if (CategoryId != 0)
+            {
+                products = products.Where(p => p.CategoryID == CategoryId);
+            }
+            if (fees > 0)
+            {
+                switch (fees)
+                {
+                    case 1:
+                        products = products.Where(p => p.CurrentPrice > 0 && p.CurrentPrice < 9999);
+                        break;
+
+                    case 2:
+                        products = products.Where(p => p.CurrentPrice >= 10000 && p.CurrentPrice < 20000);
+                        break;
+
+                    case 3:
+                        products = products.Where(p => p.CurrentPrice >= 20000 && p.CurrentPrice < 30000);
+                        break;
+
+                    case 4:
+                        products = products.Where(p => p.CurrentPrice >= 30000 && p.CurrentPrice < 50000);
+                        break;
+
+                    case 5:
+                        products = products.Where(p => p.CurrentPrice >= 50000);
+                        break;
+
+                    default:
+                        // Optionally, you can handle cases where the fee doesn't match any category.
+                        break;
+                }
+            }
+
+            if (orderBy > 0)
+            {
+                products = orderBy switch
+                {
+                    1 => products.OrderBy(p => p.CurrentPrice),
+                    2 => products.OrderByDescending(p => p.Reviews.Any() ? p.Reviews.Average(a => a.Rate) : 0),
+                };
+            }
+            int  productCount = await products.CountAsync();
+            return productCount;
         }
 
     }

@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using BusinessAccessLayer.Services.CacheService;
 using E_CommerceApp.Fillter;
+using Business_Access_Layer.DTOS.ProductDtos;
 
 namespace E_CommerceApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    
+    [ApiVersion("1.0", Deprecated = true)]
     public class ProductController : BaseController
     {
-   //     private readonly FillterAction _filter;
         private readonly IProductServices productServices;
         private readonly ICacheService cacheService;
         public ProductController(IProductServices productServices, ICacheService cacheService)
@@ -25,8 +25,7 @@ namespace E_CommerceApp.Controllers
             this.cacheService = cacheService;
         }
         [HttpGet]
-        [ServiceFilter(typeof(FillterAction))] // Apply the filter to a specific action
-        public async Task<IActionResult> ProductsWithCategory()
+        public async Task<IActionResult> ProductsWithCategoryV1()
         {
              var cacheKey = $"ProductWithCategoryDto";
             var cachedData = cacheService.GetCache<List<ProductWithCategoryDto>>(cacheKey);
@@ -44,28 +43,47 @@ namespace E_CommerceApp.Controllers
                 return NewResult(new ResponseHandler().Success<List<ProductWithCategoryDto>>(products));
 
             }
-
            
         }
-        [HttpGet("ProductWithPagination")]
-        public async Task<IActionResult> ProductWithPagination([FromQuery] Pagination pagination)
-        {
-            var products = await productServices.GetProductWithPagination(pagination);
-            if (products.Count == 0)
-                return NewResult(new ResponseHandler().NotFound<List<ViewProduct>>("Not Found Product"));
-            return NewResult(new ResponseHandler().Success(products));
-        }
+        #region v2
+        //[HttpGet]
+        //[ApiVersion("2.0")]
+        //public async Task<IActionResult> ProductsWithCategoryV2()
+        //{
+        //    var cacheKey = $"ProductWithCategoryDto";
+        //    var cachedData = cacheService.GetCache<List<ProductWithCategoryDto>>(cacheKey);
+        //    if (cachedData != null)
+        //    {
+        //        return NewResult(new ResponseHandler().Success(cachedData));
+        //    }
+        //    else
+        //    {
+        //        List<ProductWithCategoryDto> products = await productServices.ProductsWithCategory();
+        //        if (products.Count == 0)
+        //            return NewResult(new ResponseHandler().NotFound<List<ProductWithCategoryDto>>("Not Found Product"));
+        //        cacheService.SetCache(cacheKey, products, TimeSpan.FromMinutes(5));
+
+        //        return NewResult(new ResponseHandler().Success<List<ProductWithCategoryDto>>(products));
+
+        //    }
+
+
+        //}
+        #endregion
+
+
         [HttpGet("ProductWithPagination/V2")]
-        public async Task<IActionResult> ProductWithPaginationv2([FromQuery]int pageNum = 1, [FromQuery] int orderBy = 0, [FromQuery] string category = null, [FromQuery] int fees = 0)
+        public async Task<IActionResult> ProductWithPaginationv2([FromQuery] int pageNumber, [FromQuery] int orderBy, [FromQuery] int fees, [FromQuery] int CategoryId, [FromQuery] string? Search)
         {
-            var products = await productServices.GetProductWithPaginationV2(pageNum, orderBy, category, fees);
+            var products = await productServices.GetProductsWithFillter(pageNumber,  orderBy,  fees,  CategoryId,  Search);
             if (products.Count == 0)
-                return NewResult(new ResponseHandler().NotFound<List<ViewProduct>>("Not Found Product"));
+                return NewResult(new ResponseHandler().NotFound<ProductViewPagination>("Not Found Product"));
             return NewResult(new ResponseHandler().Success(products));
         }
 
+        #region Create
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromForm]CreateProductDto createProductDto)
+        public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto createProductDto)
         {
             var validator = new CreateProductDtoValidation();
             var validationResult = await validator.ValidateAsync(createProductDto);
@@ -77,19 +95,21 @@ namespace E_CommerceApp.Controllers
             ViewProduct viewProduct = await productServices.CreateProduct(createProductDto);
             return NewResult(new ResponseHandler().Success(viewProduct));
 
-        }
+        } 
+        #endregion
 
+        #region Id
         [HttpGet]
-       
-        [Route(("GetProduct/{Id}"))]
-        [ServiceFilter(typeof(FillterAction))] // Apply the filter to a specific action
-        [Authorize(Roles = "User")]
+        [Route(("{Id}"))]
+      //  [ServiceFilter(typeof(FillterAction))] // Apply the filter to a specific action
+     //   [Authorize(Roles = "User")]
         public async Task<IActionResult> GetProduct(int Id)
         {
             var products = await productServices.ProductWithCategory(Id);
             if (products == null)
                 return NewResult(new ResponseHandler().NotFound<ProductWithCategoryDtoProcudere>("Not Found Product"));
             return NewResult(new ResponseHandler().Success(products));
-        }
+        } 
+        #endregion
     }
 }

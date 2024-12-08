@@ -3677,11 +3677,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
+      "projectUniqueName": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
       "projectName": "DataAccessLayer",
-      "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
+      "projectPath": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\DataAccessLayer.csproj",
       "packagesPath": "C:\\Users\\AL-FAJR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AL-FAJR\\Desktop\\E-CommerceApp\\DataAccessLayer\\obj\\",
+      "outputPath": "E:\\sw .net\\E-CommerceApp\\DataAccessLayer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\AL-FAJR\\AppData\\Roaming\\NuGet\\NuGet.Config",
